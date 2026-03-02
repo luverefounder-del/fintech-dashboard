@@ -5,11 +5,10 @@ import { useState } from "react";
 
 export default function SignupPage() {
   const router = useRouter();
-
   const [form, setForm] = useState({
     name: "",
-    email: "",
     phone: "",
+    email: "",
     password: "",
   });
 
@@ -20,7 +19,7 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] to-[#1e293b] px-6">
-      
+
       <div className="w-full max-w-md bg-[#0f1c2e] p-8 rounded-2xl shadow-2xl border border-slate-700">
 
         <h2 className="text-3xl font-semibold text-white mb-8">
