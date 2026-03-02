@@ -4,134 +4,127 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div style={pageStyle}>
+    <main style={styles.wrapper}>
       
-      {/* TOP NAV */}
-      <div style={navStyle}>
+      {/* NAVBAR */}
+      <div style={styles.nav}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img src="/logo.png" style={{ width: 42, height: 42, borderRadius: 8 }} />
-          <span style={{ fontSize: 22, fontWeight: 700, color: "#3b82f6" }}>
-            ElitePay
-          </span>
+          <img src="/logo.png" alt="logo" width={40} height={40} />
+          <span style={styles.brand}>ElitePay</span>
         </div>
       </div>
 
       {/* HERO SECTION */}
-      <div style={heroContainer}>
-
-        <img
-          src="/logo.png"
-          style={{
-            width: 120,
-            height: 120,
-            borderRadius: 20,
-            background: "white",
-            padding: 10,
-            boxShadow: "0 0 40px rgba(59,130,246,0.5)"
-          }}
-        />
+      <section style={styles.hero}>
 
         {/* Badge */}
-        <div style={badgeStyle}>
-          ⚡ India’s Most Trusted Digital Payment Gateway
+        <div style={styles.badge}>
+          India's #1 Trusted Payment Gateway
         </div>
 
         {/* Heading */}
-        <h1 style={headingStyle}>
+        <h1 style={styles.heading}>
           Secure & Instant <br />
           <span style={{ color: "#3b82f6" }}>Payment Solutions</span>
         </h1>
 
         {/* Description */}
-        <p style={descStyle}>
-          Process payments seamlessly with enterprise-grade infrastructure.
-          Lightning-fast UPI transactions powered by advanced security layers
-          and 99.99% uptime performance.
+        <p style={styles.description}>
+          Process payments seamlessly with ElitePay trusted by 50,000+ merchants across India. 
+          Lightning-fast UPI transactions with 99.99% uptime.
         </p>
 
         {/* Buttons */}
         <div style={{ marginTop: 30 }}>
           <Link href="/signup">
-            <button style={primaryBtn}>Get Started</button>
+            <button style={styles.primaryBtn}>Get Started</button>
           </Link>
 
           <Link href="/login">
-            <button style={secondaryBtn}>Login</button>
+            <button style={styles.secondaryBtn}>Login</button>
           </Link>
         </div>
 
-      </div>
-    </div>
+      </section>
+
+    </main>
   );
 }
 
 /* STYLES */
 
-const pageStyle = {
-  minHeight: "100vh",
-  background: "radial-gradient(circle at center, #1e3a8a 0%, #0f172a 60%)",
-  color: "white",
-  fontFamily: "system-ui, sans-serif"
-};
+const styles = {
+  wrapper: {
+    minHeight: "100vh",
+    background: "linear-gradient(135deg,#0f172a,#1e293b)",
+    color: "white",
+    fontFamily: "system-ui, sans-serif"
+  },
 
-const navStyle = {
-  padding: "20px 30px",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center"
-};
+  nav: {
+    padding: "20px 40px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
 
-const heroContainer = {
-  textAlign: "center",
-  padding: "80px 20px",
-  maxWidth: 900,
-  margin: "auto"
-};
+  brand: {
+    fontSize: "22px",
+    fontWeight: "700",
+    color: "#3b82f6"
+  },
 
-const badgeStyle = {
-  marginTop: 25,
-  display: "inline-block",
-  padding: "10px 22px",
-  borderRadius: 30,
-  background: "rgba(59,130,246,0.15)",
-  border: "1px solid rgba(59,130,246,0.4)",
-  color: "#60a5fa",
-  fontWeight: 500
-};
+  hero: {
+    textAlign: "center" as const,
+    padding: "100px 20px",
+    maxWidth: "900px",
+    margin: "auto"
+  },
 
-const headingStyle = {
-  marginTop: 40,
-  fontSize: "52px",
-  fontWeight: 800,
-  lineHeight: 1.2
-};
+  badge: {
+    display: "inline-block",
+    padding: "10px 20px",
+    borderRadius: "30px",
+    background: "rgba(59,130,246,0.15)",
+    border: "1px solid rgba(59,130,246,0.4)",
+    color: "#60a5fa",
+    fontWeight: "500",
+    marginBottom: "30px"
+  },
 
-const descStyle = {
-  marginTop: 25,
-  fontSize: 18,
-  opacity: 0.85,
-  maxWidth: 650,
-  marginLeft: "auto",
-  marginRight: "auto"
-};
+  heading: {
+    fontSize: "52px",
+    fontWeight: "800",
+    lineHeight: "1.2",
+    marginBottom: "25px"
+  },
 
-const primaryBtn = {
-  padding: "14px 32px",
-  marginRight: 15,
-  background: "#3b82f6",
-  border: "none",
-  borderRadius: 10,
-  color: "white",
-  fontWeight: 600,
-  cursor: "pointer"
-};
+  description: {
+    fontSize: "18px",
+    opacity: "0.85",
+    lineHeight: "1.6",
+    maxWidth: "650px",
+    margin: "0 auto"
+  },
 
-const secondaryBtn = {
-  padding: "14px 32px",
-  background: "#334155",
-  border: "none",
-  borderRadius: 10,
-  color: "white",
-  fontWeight: 600,
-  cursor: "pointer"
+  primaryBtn: {
+    padding: "14px 32px",
+    marginRight: "15px",
+    background: "#3b82f6",
+    border: "none",
+    borderRadius: "10px",
+    color: "white",
+    fontWeight: "600",
+    cursor: "pointer"
+  },
+
+  secondaryBtn: {
+    padding: "14px 32px",
+    background: "#334155",
+    border: "none",
+    borderRadius: "10px",
+    color: "white",
+    fontWeight: "600",
+    cursor: "pointer"
+  }
 };
