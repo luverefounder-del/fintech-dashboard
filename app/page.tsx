@@ -1,79 +1,71 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import TopBar from "../components/TopBar";
-import DashboardCard from "../components/DashboardCard";
-import WithdrawModal from "../components/WithdrawModal";
-import PaymentMethodModal from "../components/PaymentMethodModal";
+import { useRouter } from "next/navigation"
 
 export default function Home() {
-  const [showWithdraw, setShowWithdraw] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
-  const [userName, setUserName] = useState("User");
-
-  useEffect(() => {
-    const storedName = localStorage.getItem("userName");
-    if (storedName) {
-      setUserName(storedName);
-    }
-  }, []);
+  const router = useRouter()
 
   return (
-    <div
-      style={{
-        background: "#0b0f19",
-        minHeight: "100vh",
-        paddingBottom: 40,
-        fontFamily: "Arial, Helvetica, sans-serif"
-      }}
-    >
-      <TopBar />
-
-      <div style={{ padding: "20px" }}>
-        <h2 style={{ color: "#fff", fontWeight: 600 }}>
-          Welcome, {userName}
-        </h2>
-
-        <p style={{ color: "#9ca3af" }}>
-          Manage your funds, exchange & withdrawals
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h1 style={styles.title}>Elite Pay</h1>
+        <p style={styles.subtitle}>
+          Next-Gen Secure Payment Gateway
         </p>
 
-        <div style={{ marginTop: 30 }}>
-          <DashboardCard
-            title="Pure Fund"
-            amount="1,14,11,990"
-            onWithdraw={() => setShowWithdraw(true)}
-          />
+        <button
+          style={styles.primaryBtn}
+          onClick={() => router.push("/signup")}
+        >
+          Get Started
+        </button>
 
-          <DashboardCard
-            title="Stock Fund"
-            amount="2,03,78,348"
-            onWithdraw={() => setShowWithdraw(true)}
-          />
-
-          <DashboardCard
-            title="Political Fund"
-            amount="4,58,95,492"
-            onWithdraw={() => setShowWithdraw(true)}
-          />
-        </div>
+        <button
+          style={styles.secondaryBtn}
+          onClick={() => router.push("/login")}
+        >
+          Login
+        </button>
       </div>
-
-      {showWithdraw && (
-        <WithdrawModal
-          onClose={() => setShowWithdraw(false)}
-          onSelectPlan={() => {
-            setShowWithdraw(false);
-            setShowPayment(true);
-          }}
-        />
-      )}
-
-      {showPayment && (
-        <PaymentMethodModal
-          onClose={() => setShowPayment(false)}
-        />
-      )}
     </div>
-  );
+  )
+}
+
+const styles = {
+  container: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#0f172a",
+  },
+  card: {
+    textAlign: "center" as const,
+  },
+  title: {
+    fontSize: "32px",
+    color: "#3b82f6",
+    marginBottom: "10px",
+  },
+  subtitle: {
+    color: "white",
+    marginBottom: "30px",
+  },
+  primaryBtn: {
+    padding: "12px 25px",
+    marginRight: "10px",
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+  secondaryBtn: {
+    padding: "12px 25px",
+    background: "#334155",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
 }
