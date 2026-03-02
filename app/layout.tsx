@@ -1,3 +1,10 @@
+import "./globals.css";
+
+export const metadata = {
+  title: "Elite Pay",
+  description: "Elite Pay Fintech Dashboard",
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, background: "#020617", color: "white" }}>
+      <body className="bg-black text-white">
         {children}
       </body>
     </html>
