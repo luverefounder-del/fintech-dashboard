@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TopBar from "../components/TopBar";
 import DashboardCard from "../components/DashboardCard";
 import WithdrawModal from "../components/WithdrawModal";
@@ -9,14 +9,31 @@ import PaymentMethodModal from "../components/PaymentMethodModal";
 export default function Home() {
   const [showWithdraw, setShowWithdraw] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+  const [userName, setUserName] = useState("User");
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName");
+    if (storedName) {
+      setUserName(storedName);
+    }
+  }, []);
 
   return (
-    <div style={{ background: "#0b0f19", minHeight: "100vh", paddingBottom: 40 }}>
-      
+    <div
+      style={{
+        background: "#0b0f19",
+        minHeight: "100vh",
+        paddingBottom: 40,
+        fontFamily: "Arial, Helvetica, sans-serif"
+      }}
+    >
       <TopBar />
 
       <div style={{ padding: "20px" }}>
-        <h2 style={{ color: "#fff" }}>Welcome, Sahil Khan</h2>
+        <h2 style={{ color: "#fff", fontWeight: 600 }}>
+          Welcome, {userName}
+        </h2>
+
         <p style={{ color: "#9ca3af" }}>
           Manage your funds, exchange & withdrawals
         </p>
