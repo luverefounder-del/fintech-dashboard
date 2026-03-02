@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -9,32 +10,45 @@ export default function Home() {
       {/* NAVBAR */}
       <div style={styles.nav}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img src="/logo.png" alt="logo" width={40} height={40} />
+          <Image 
+            src="/IMG_20260303_022001_156.jpg"
+            alt="ElitePay Logo"
+            width={40}
+            height={40}
+          />
           <span style={styles.brand}>ElitePay</span>
         </div>
       </div>
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section style={styles.hero}>
+
+        {/* BIG ROUNDED LOGO */}
+        <div style={styles.logoCard}>
+          <Image
+            src="/IMG_20260303_022001_156.jpg"
+            alt="ElitePay"
+            width={160}
+            height={160}
+            style={{ borderRadius: "30px" }}
+          />
+        </div>
 
         {/* Badge */}
         <div style={styles.badge}>
           India's #1 Trusted Payment Gateway
         </div>
 
-        {/* Heading */}
         <h1 style={styles.heading}>
           Secure & Instant <br />
           <span style={{ color: "#3b82f6" }}>Payment Solutions</span>
         </h1>
 
-        {/* Description */}
         <p style={styles.description}>
-          Process payments seamlessly with ElitePay trusted by 50,000+ merchants across India. 
+          Process payments seamlessly with ElitePay trusted by 50,000+ merchants across India.
           Lightning-fast UPI transactions with 99.99% uptime.
         </p>
 
-        {/* Buttons */}
         <div style={{ marginTop: 30 }}>
           <Link href="/signup">
             <button style={styles.primaryBtn}>Get Started</button>
@@ -51,8 +65,6 @@ export default function Home() {
   );
 }
 
-/* STYLES */
-
 const styles = {
   wrapper: {
     minHeight: "100vh",
@@ -64,7 +76,6 @@ const styles = {
   nav: {
     padding: "20px 40px",
     display: "flex",
-    justifyContent: "space-between",
     alignItems: "center"
   },
 
@@ -76,9 +87,18 @@ const styles = {
 
   hero: {
     textAlign: "center" as const,
-    padding: "100px 20px",
+    padding: "80px 20px",
     maxWidth: "900px",
     margin: "auto"
+  },
+
+  logoCard: {
+    background: "#ffffff",
+    display: "inline-block",
+    padding: "20px",
+    borderRadius: "35px",
+    marginBottom: "25px",
+    boxShadow: "0 10px 40px rgba(0,0,0,0.4)"
   },
 
   badge: {
