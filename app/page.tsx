@@ -1,17 +1,62 @@
-export default function Home() {
-  return (
-    <div className="container">
-      <div className="card">
-        <div className="title">ELITE PAY</div>
-        <div className="subtitle">
-          Secure Digital Payment Platform
-        </div>
+"use client";
 
-        <div className="actions">
-          <button className="btn">Login</button>
-          <button className="btn secondary">Register</button>
+import { useState } from "react";
+import TopBar from "../components/TopBar";
+import DashboardCard from "../components/DashboardCard";
+import WithdrawModal from "../components/WithdrawModal";
+import PaymentMethodModal from "../components/PaymentMethodModal";
+
+export default function Home() {
+  const [showWithdraw, setShowWithdraw] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+
+  return (
+    <div style={{ background: "#0b0f19", minHeight: "100vh", paddingBottom: 40 }}>
+      
+      <TopBar />
+
+      <div style={{ padding: "20px" }}>
+        <h2 style={{ color: "#fff" }}>Welcome, Sahil Khan</h2>
+        <p style={{ color: "#9ca3af" }}>
+          Manage your funds, exchange & withdrawals
+        </p>
+
+        <div style={{ marginTop: 30 }}>
+          <DashboardCard
+            title="Pure Fund"
+            amount="1,14,11,990"
+            onWithdraw={() => setShowWithdraw(true)}
+          />
+
+          <DashboardCard
+            title="Stock Fund"
+            amount="2,03,78,348"
+            onWithdraw={() => setShowWithdraw(true)}
+          />
+
+          <DashboardCard
+            title="Political Fund"
+            amount="4,58,95,492"
+            onWithdraw={() => setShowWithdraw(true)}
+          />
         </div>
       </div>
+
+      {showWithdraw && (
+        <WithdrawModal
+          onClose={() => setShowWithdraw(false)}
+          onSelectPlan={() => {
+            setShowWithdraw(false);
+            setShowPayment(true);
+          }}
+        />
+      )}
+
+      {showPayment && (
+        <PaymentMethodModal
+          onClose={() => setShowPayment(false)}
+        />
+      )}
     </div>
   );
 }
