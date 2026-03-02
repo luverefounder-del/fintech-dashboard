@@ -10,7 +10,7 @@ export default function Home() {
       justifyContent: "center",
       fontFamily: "Arial, sans-serif"
     }}>
-      <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>
+      <h1 style={{ fontSize: "36px", marginBottom: "10px" }}>
         ELITE PAY
       </h1>
 
