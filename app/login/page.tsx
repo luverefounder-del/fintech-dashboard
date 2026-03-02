@@ -1,78 +1,89 @@
-"use client"
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-
-export default function LoginPage() {
-  const [name, setName] = useState("")
-  const router = useRouter()
+export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    if (!name) return alert("Please enter your name")
+    const storedUser = localStorage.getItem("eliteUser");
 
-    // Save username in localStorage
-    localStorage.setItem("username", name)
+    if (!storedUser) {
+      alert("No account found. Please signup first.");
+      return;
+    }
 
-    // Redirect to dashboard
-    router.push("/dashboard")
-  }
+    const user = JSON.parse(storedUser);
+
+    if (user.email === email && user.password === password) {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userName", user.name);
+      router.push("/dashboard");
+    } else {
+      alert("Invalid Email or Password");
+    }
+  };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>Login</h1>
+    <div style={{
+      minHeight: "100vh",
+      background: "#0f172a",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "white"
+    }}>
+      <div style={{
+        width: 350,
+        padding: 30,
+        background: "#1e293b",
+        borderRadius: 15
+      }}>
+        <h2 style={{ textAlign: "center", marginBottom: 20 }}>Login</h2>
 
         <input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={styles.input}
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
         />
 
-        <button onClick={handleLogin} style={styles.button}>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={inputStyle}
+        />
+
+        <button
+          onClick={handleLogin}
+          style={{
+            width: "100%",
+            padding: 12,
+            background: "#3b82f6",
+            borderRadius: 8,
+            border: "none",
+            color: "white",
+            fontWeight: 600,
+            marginTop: 10,
+            cursor: "pointer"
+          }}
+        >
           Login
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-const styles = {
-  container: {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "#0f172a",
-  },
-  card: {
-    background: "#1e293b",
-    padding: "40px",
-    borderRadius: "12px",
-    width: "300px",
-    textAlign: "center" as const,
-  },
-  title: {
-    color: "white",
-    marginBottom: "20px",
-    fontSize: "22px",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    borderRadius: "6px",
-    border: "none",
-    outline: "none",
-  },
-  button: {
-    width: "100%",
-    padding: "10px",
-    background: "#2563eb",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
-}
+const inputStyle = {
+  width: "100%",
+  padding: 10,
+  marginBottom: 12,
+  borderRadius: 8,
+  border: "none"
+};
