@@ -1,84 +1,77 @@
-"use client"
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-
-export default function SignupPage() {
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
-  const router = useRouter()
+export default function Signup() {
+  const router = useRouter();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: ""
+  });
 
   const handleSignup = () => {
-    if (!name || !password) {
-      alert("Fill all fields")
-      return
-    }
-
-    localStorage.setItem("user", JSON.stringify({ name, password }))
-    alert("Signup successful")
-    router.push("/login")
-  }
+    localStorage.setItem("eliteUser", JSON.stringify(form));
+    alert("Account Created Successfully");
+    router.push("/login");
+  };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2 style={styles.title}>Signup</h2>
+    <div style={{
+      minHeight: "100vh",
+      background: "#0f172a",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "white"
+    }}>
+      <div style={{
+        width: 350,
+        padding: 30,
+        background: "#1e293b",
+        borderRadius: 15
+      }}>
+        <h2 style={{ textAlign: "center", marginBottom: 20 }}>Create Account</h2>
 
-        <input
-          placeholder="Enter Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={styles.input}
-        />
+        <input placeholder="Full Name"
+          onChange={e => setForm({...form,name:e.target.value})}
+          style={inputStyle} />
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
-        />
+        <input placeholder="Email Address"
+          onChange={e => setForm({...form,email:e.target.value})}
+          style={inputStyle} />
 
-        <button onClick={handleSignup} style={styles.button}>
+        <input placeholder="Phone Number"
+          onChange={e => setForm({...form,phone:e.target.value})}
+          style={inputStyle} />
+
+        <input type="password" placeholder="Password"
+          onChange={e => setForm({...form,password:e.target.value})}
+          style={inputStyle} />
+
+        <button onClick={handleSignup}
+          style={{
+            width: "100%",
+            padding: 12,
+            background: "#3b82f6",
+            borderRadius: 8,
+            border: "none",
+            color: "white",
+            fontWeight: 600,
+            marginTop: 10
+          }}>
           Signup
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-const styles = {
-  container: {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "#0f172a",
-  },
-  card: {
-    background: "#1e293b",
-    padding: "40px",
-    borderRadius: "12px",
-    width: "300px",
-    textAlign: "center" as const,
-  },
-  title: {
-    color: "white",
-    marginBottom: "20px",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    borderRadius: "6px",
-    border: "none",
-  },
-  button: {
-    width: "100%",
-    padding: "10px",
-    background: "#2563eb",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-  },
-}
+const inputStyle = {
+  width: "100%",
+  padding: 10,
+  marginBottom: 12,
+  borderRadius: 8,
+  border: "none"
+};
