@@ -1,86 +1,11 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+html,
 body {
-  font-family: "Inter", Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b1a33, #050b18 70%);
-  color: #fff;
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-}
-
-.logo {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-}
-
-.brand {
-  font-size: 20px;
-  font-weight: 600;
-  color: #4da3ff;
-}
-
-/* Cards */
-.card {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06),
-    rgba(255, 255, 255, 0.02)
-  );
-  border-radius: 18px;
-  padding: 20px;
-  margin: 16px;
-  box-shadow: 0 0 30px rgba(0, 140, 255, 0.12);
-}
-
-/* Total fund */
-.total-title {
-  opacity: 0.7;
-  text-align: center;
-}
-
-.total-amount {
-  font-size: 34px;
-  font-weight: 700;
-  color: #4da3ff;
-  text-align: center;
-  margin: 10px 0;
-}
-
-/* Fund row */
-.fund-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.fund-name {
-  opacity: 0.8;
-}
-
-.fund-amount {
-  font-size: 22px;
-  font-weight: 600;
-}
-
-/* Button */
-.btn {
-  width: 100%;
-  margin-top: 14px;
-  padding: 12px;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #1e6bff, #3fa9ff);
-  border: none;
-  color: #fff;
-  font-size: 15px;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(to bottom right, #0f172a, #1e293b);
+  font-family: sans-serif;
 }
