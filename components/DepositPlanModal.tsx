@@ -7,9 +7,9 @@ interface Props {
 
 export default function DepositPlanModal({ onClose, onSelect }: Props) {
   const plans = [
-    { inr: 5000, usd: 50 },= get 20,000
-    { inr: 10000, usd: 100 },= get 40,000
-    { inr: 20000, usd: 200 },= get 80,000
+    { inr: 5000, usd: 50 },
+    { inr: 10000, usd: 100 },
+    { inr: 20000, usd: 200 },
   ];
 
   return (
