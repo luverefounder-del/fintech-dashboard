@@ -9,12 +9,13 @@ export default function Home() {
       
       {/* NAVBAR */}
       <div style={styles.nav}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image 
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <Image
             src="/IMG_20260303_022001_156.jpg"
-            alt="ElitePay Logo"
-            width={40}
-            height={40}
+            alt="ElitePay"
+            width={44}
+            height={44}
+            style={{ borderRadius: "50%" }}
           />
           <span style={styles.brand}>ElitePay</span>
         </div>
@@ -23,18 +24,16 @@ export default function Home() {
       {/* HERO */}
       <section style={styles.hero}>
 
-        {/* BIG ROUNDED LOGO */}
-        <div style={styles.logoCard}>
+        <div style={styles.logoCircle}>
           <Image
             src="/IMG_20260303_022001_156.jpg"
             alt="ElitePay"
-            width={160}
-            height={160}
-            style={{ borderRadius: "30px" }}
+            width={180}
+            height={180}
+            style={{ borderRadius: "50%" }}
           />
         </div>
 
-        {/* Badge */}
         <div style={styles.badge}>
           India's #1 Trusted Payment Gateway
         </div>
@@ -49,16 +48,82 @@ export default function Home() {
           Lightning-fast UPI transactions with 99.99% uptime.
         </p>
 
-        <div style={{ marginTop: 30 }}>
+        <div style={{ marginTop: 50 }}>
           <Link href="/signup">
             <button style={styles.primaryBtn}>Get Started</button>
           </Link>
-
-          <Link href="/login">
-            <button style={styles.secondaryBtn}>Login</button>
-          </Link>
         </div>
 
+      </section>
+
+      {/* TERMS SECTION */}
+      <section style={styles.termsSection}>
+        <h2 style={styles.termsHeading}>Terms & Conditions</h2>
+
+        <div style={styles.termsContent}>
+
+          <h3>1. Acceptance of Terms</h3>
+          <p>
+            By accessing ElitePay, users agree to comply with all applicable laws,
+            regulations, and financial compliance standards governing digital transactions.
+          </p>
+
+          <h3>2. Account Responsibility</h3>
+          <p>
+            Users are responsible for safeguarding login credentials and ensuring
+            authorized usage of their accounts. ElitePay is not liable for losses
+            arising from negligence in account security.
+          </p>
+
+          <h3>3. Compliance & Verification</h3>
+          <p>
+            Certain features may require identity verification (KYC) and regulatory
+            compliance checks before activation.
+          </p>
+
+          <h3>4. Transaction Monitoring</h3>
+          <p>
+            All transactions are subject to automated fraud detection and compliance
+            monitoring to maintain secure processing standards.
+          </p>
+
+          <h3>5. Risk Disclosure</h3>
+          <p>
+            Digital payment processing involves operational and network risks.
+            Service delays may occur due to banking network limitations.
+          </p>
+
+          <h3>6. Service Availability</h3>
+          <p>
+            ElitePay maintains high uptime standards; however, temporary service
+            interruptions may occur during maintenance or unforeseen events.
+          </p>
+
+          <h3>7. Prohibited Activities</h3>
+          <p>
+            Fraudulent activity, misuse of banking systems, or unauthorized fund routing
+            is strictly prohibited and may result in termination and legal reporting.
+          </p>
+
+          <h3>8. Limitation of Liability</h3>
+          <p>
+            ElitePay shall not be liable for indirect or consequential damages
+            resulting from platform usage.
+          </p>
+
+          <h3>9. Policy Updates</h3>
+          <p>
+            Terms may be updated periodically. Continued use of the platform
+            indicates acceptance of revised terms.
+          </p>
+
+          <h3>10. Governing Law</h3>
+          <p>
+            These terms are governed by applicable digital commerce and financial
+            regulations under the operating jurisdiction.
+          </p>
+
+        </div>
       </section>
 
     </main>
@@ -74,15 +139,15 @@ const styles = {
   },
 
   nav: {
-    padding: "20px 40px",
-    display: "flex",
-    alignItems: "center"
+    padding: "20px 40px"
   },
 
   brand: {
     fontSize: "22px",
     fontWeight: "700",
-    color: "#3b82f6"
+    background: "linear-gradient(90deg,#3b82f6,#60a5fa)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent"
   },
 
   hero: {
@@ -92,13 +157,8 @@ const styles = {
     margin: "auto"
   },
 
-  logoCard: {
-    background: "#ffffff",
-    display: "inline-block",
-    padding: "20px",
-    borderRadius: "35px",
-    marginBottom: "25px",
-    boxShadow: "0 10px 40px rgba(0,0,0,0.4)"
+  logoCircle: {
+    marginBottom: "30px"
   },
 
   badge: {
@@ -128,23 +188,35 @@ const styles = {
   },
 
   primaryBtn: {
-    padding: "14px 32px",
-    marginRight: "15px",
+    padding: "18px 60px",
     background: "#3b82f6",
     border: "none",
-    borderRadius: "10px",
+    borderRadius: "14px",
     color: "white",
-    fontWeight: "600",
+    fontWeight: "700",
+    fontSize: "18px",
     cursor: "pointer"
   },
 
-  secondaryBtn: {
-    padding: "14px 32px",
-    background: "#334155",
-    border: "none",
-    borderRadius: "10px",
-    color: "white",
-    fontWeight: "600",
-    cursor: "pointer"
+  termsSection: {
+    marginTop: "120px",
+    padding: "80px 20px",
+    background: "#0f172a",
+    borderTop: "1px solid rgba(255,255,255,0.1)"
+  },
+
+  termsHeading: {
+    fontSize: "34px",
+    fontWeight: "700",
+    marginBottom: "50px",
+    textAlign: "center" as const
+  },
+
+  termsContent: {
+    maxWidth: "900px",
+    margin: "0 auto",
+    fontSize: "15px",
+    lineHeight: "1.9",
+    opacity: 0.85
   }
 };
