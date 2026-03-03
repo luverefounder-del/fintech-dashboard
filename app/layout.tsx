@@ -1,9 +1,10 @@
+import "./globals.css";
+import Navbar from "../components/Navbar";
+
 export const metadata = {
   title: "ElitePay",
   description: "Secure Payment Gateway",
 };
-
-import "./globals.css";
 
 export default function RootLayout({
   children,
@@ -12,7 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-[#071428] text-white">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
