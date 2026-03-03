@@ -1,7 +1,9 @@
 export const metadata = {
   title: "ElitePay",
-  description: "ElitePay Dashboard",
+  description: "Secure Payment Gateway",
 };
+
+import "./globals.css";
 
 export default function RootLayout({
   children,
