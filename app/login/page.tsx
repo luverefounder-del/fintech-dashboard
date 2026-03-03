@@ -1,6 +1,6 @@
 "use client";
+
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [signup, setSignup] = useState(true);
@@ -9,52 +9,58 @@ export default function LoginPage() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const router = useRouter();
 
   const handleSubmit = () => {
     setError("");
 
     if (signup) {
-      // Save to localStorage
-      localStorage.setItem("user", JSON.stringify({ fullName, email, phone, password }));
-      alert("Account Created Successfully!");
+      const userData = { fullName, email, phone, password };
+      localStorage.setItem("user", JSON.stringify(userData));
+      alert("Account created successfully");
       setSignup(false);
-    } else {
-      const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
+      return;
+    }
 
-      if (email === savedUser.email && password === savedUser.password) {
-        router.push("/dashboard");
-      } else {
-        setError("Invalid Email or Password");
-      }
+    const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (
+      email === savedUser.email &&
+      password === savedUser.password
+    ) {
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem(
+        "userName",
+        savedUser.fullName || email.split("@")[0]
+      );
+
+      window.location.replace("/dashboard");
+    } else {
+      setError("Invalid Email or Password");
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#071c3b] flex items-center justify-center px-4 text-white">
+    <div className="min-h-screen bg-[#050f1f] flex items-center justify-center px-4 text-white">
+      <div className="w-full max-w-md bg-[#0b1c33] p-8 rounded-2xl border border-[#1e3a8a]">
 
-      <div className="w-full max-w-md bg-[#0b234a] p-8 rounded-2xl border border-blue-900 shadow-xl">
-
-        <h2 className="text-2xl font-semibold mb-6 text-center text-blue-400">
+        <h2 className="text-2xl font-semibold mb-6 text-center text-[#3b82f6]">
           {signup ? "Create your account" : "Login"}
         </h2>
 
         {signup && (
-          <>
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="w-full mb-4 px-4 py-3 rounded-lg bg-[#112b5c]"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </>
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
         )}
 
         <input
           type="email"
           placeholder="Email Address"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#112b5c]"
+          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -63,7 +69,7 @@ export default function LoginPage() {
           <input
             type="text"
             placeholder="Phone Number"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#112b5c]"
+            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -72,29 +78,29 @@ export default function LoginPage() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-6 px-4 py-3 rounded-lg bg-[#112b5c]"
+          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
         {error && (
-          <p className="text-red-400 text-sm mb-4 text-center">{error}</p>
+          <p className="text-red-400 text-sm mb-3 text-center">{error}</p>
         )}
 
         <button
           onClick={handleSubmit}
-          className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold transition"
+          className="w-full bg-[#3b82f6] hover:opacity-90 py-3 rounded-lg font-semibold"
         >
           {signup ? "Create Account" : "Login"}
         </button>
 
-        <p className="mt-6 text-sm text-center text-gray-400">
+        <p className="mt-6 text-center text-gray-400 text-sm">
           {signup ? (
             <>
               Already have an account?{" "}
               <span
                 onClick={() => setSignup(false)}
-                className="text-blue-400 cursor-pointer"
+                className="text-[#3b82f6] cursor-pointer"
               >
                 Login
               </span>
@@ -104,13 +110,14 @@ export default function LoginPage() {
               Don’t have an account?{" "}
               <span
                 onClick={() => setSignup(true)}
-                className="text-blue-400 cursor-pointer"
+                className="text-[#3b82f6] cursor-pointer"
               >
                 Sign up
               </span>
             </>
           )}
         </p>
+
       </div>
     </div>
   );
