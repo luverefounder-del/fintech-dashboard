@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import WithdrawModal from "@/components/WithdrawModal";
+import WithdrawModal from "../../components/WithdrawModal";
 
 export default function Dashboard() {
   const [authReady, setAuthReady] = useState(false);
@@ -11,14 +11,13 @@ export default function Dashboard() {
   useEffect(() => {
     const logged = localStorage.getItem("isLoggedIn");
 
-    if (logged !== "true") {
-      window.location.replace("/login");
-      return;
+    if (logged === "true") {
+      const name = localStorage.getItem("userName");
+      setUserName(name || "User");
+      setAuthReady(true);
+    } else {
+      window.location.href = "/login";
     }
-
-    const name = localStorage.getItem("userName");
-    setUserName(name || "User");
-    setAuthReady(true);
   }, []);
 
   if (!authReady) return null;
@@ -103,4 +102,4 @@ export default function Dashboard() {
 
     </div>
   );
-        }
+}
