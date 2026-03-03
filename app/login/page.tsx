@@ -14,14 +14,9 @@ export default function LoginPage() {
     setError("");
 
     if (signup) {
-      if (!fullName || !email || !phone || !password) {
-        setError("Please fill all fields");
-        return;
-      }
-
       const userData = { fullName, email, phone, password };
       localStorage.setItem("user", JSON.stringify(userData));
-      alert("Account Created Successfully");
+      alert("Account Created");
       setSignup(false);
       return;
     }
@@ -32,11 +27,8 @@ export default function LoginPage() {
       email === savedUser.email &&
       password === savedUser.password
     ) {
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem(
-        "userName",
-        savedUser.fullName || email.split("@")[0]
-      );
+      document.cookie = "isLoggedIn=true; path=/";
+      document.cookie = `userName=${savedUser.fullName}; path=/`;
 
       window.location.href = "/dashboard";
     } else {
@@ -45,37 +37,30 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060f1f] flex items-center justify-center px-4 text-white">
-      <div className="w-full max-w-md bg-[#0d1c33] p-8 rounded-2xl border border-white/10">
-
-        <h2 className="text-2xl font-semibold mb-6 text-center text-[#4f8cff]">
+    <div className="min-h-screen bg-[#060f1f] flex items-center justify-center text-white">
+      <div className="bg-[#0d1c33] p-8 rounded-2xl w-[350px]">
+        <h2 className="text-center text-xl mb-6 text-[#4f8cff]">
           {signup ? "Create your account" : "Login"}
         </h2>
 
         {signup && (
           <input
-            type="text"
             placeholder="Full Name"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
-            value={fullName}
+            className="w-full mb-3 p-2 rounded bg-[#091626]"
             onChange={(e) => setFullName(e.target.value)}
           />
         )}
 
         <input
-          type="email"
-          placeholder="Email Address"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
-          value={email}
+          placeholder="Email"
+          className="w-full mb-3 p-2 rounded bg-[#091626]"
           onChange={(e) => setEmail(e.target.value)}
         />
 
         {signup && (
           <input
-            type="text"
-            placeholder="Phone Number"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
-            value={phone}
+            placeholder="Phone"
+            className="w-full mb-3 p-2 rounded bg-[#091626]"
             onChange={(e) => setPhone(e.target.value)}
           />
         )}
@@ -83,48 +68,25 @@ export default function LoginPage() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
-          value={password}
+          className="w-full mb-3 p-2 rounded bg-[#091626]"
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {error && (
-          <p className="text-red-400 text-sm mb-3 text-center">
-            {error}
-          </p>
-        )}
+        {error && <p className="text-red-400 mb-3">{error}</p>}
 
         <button
           onClick={handleSubmit}
-          className="w-full bg-[#4f8cff] py-3 rounded-lg font-semibold hover:opacity-90 transition"
+          className="w-full bg-[#4f8cff] py-2 rounded"
         >
           {signup ? "Create Account" : "Login"}
         </button>
 
-        <p className="mt-6 text-center text-gray-400 text-sm">
-          {signup ? (
-            <>
-              Already have an account?{" "}
-              <span
-                onClick={() => setSignup(false)}
-                className="text-[#4f8cff] cursor-pointer"
-              >
-                Login
-              </span>
-            </>
-          ) : (
-            <>
-              Don’t have an account?{" "}
-              <span
-                onClick={() => setSignup(true)}
-                className="text-[#4f8cff] cursor-pointer"
-              >
-                Sign up
-              </span>
-            </>
-          )}
+        <p
+          className="text-center mt-4 text-sm cursor-pointer text-[#4f8cff]"
+          onClick={() => setSignup(!signup)}
+        >
+          {signup ? "Already have account? Login" : "Create new account"}
         </p>
-
       </div>
     </div>
   );
