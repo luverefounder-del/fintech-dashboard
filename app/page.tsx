@@ -4,23 +4,21 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#06142e] text-white relative overflow-hidden">
 
-      {/* Animated INR Background */}
+      {/* Floating INR Animation */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-
-        <span className="inr inr1">₹</span>
-        <span className="inr inr2">₹</span>
-        <span className="inr inr3">₹</span>
-        <span className="inr inr4">₹</span>
-
+        <span className="rupee r1">₹</span>
+        <span className="rupee r2">₹</span>
+        <span className="rupee r3">₹</span>
+        <span className="rupee r4">₹</span>
       </div>
 
       {/* Navbar */}
       <nav className="relative z-20 flex items-center px-6 py-4 bg-[#081a3a] border-b border-blue-900">
         <div className="flex items-center gap-3">
           <img
-            src="/logo.jpg"
-            alt="ElitePay Logo"
-            className="w-10 h-10 rounded-md object-cover"
+            src="/elite.png"
+            alt="ElitePay"
+            className="w-10 h-10 rounded-md"
           />
           <span className="text-xl font-semibold text-blue-400">
             ElitePay
@@ -49,8 +47,8 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 text-gray-300 max-w-2xl mx-auto text-lg">
-          Process payments seamlessly with ElitePay — trusted by 50,000+ merchants
-          across India. Lightning-fast UPI transactions with 99.99% uptime.
+          Process payments seamlessly with ElitePay — trusted by 50,000+
+          merchants across India. Lightning-fast UPI transactions with 99.99% uptime.
         </p>
 
         <div className="mt-10">
@@ -72,22 +70,22 @@ export default function Home() {
 
             <div>
               <h3 className="text-white font-medium mb-2">1. User Agreement</h3>
-              <p>By using ElitePay services, you agree to comply with all financial and digital transaction regulations.</p>
+              <p>By accessing ElitePay, you agree to comply with all applicable financial regulations.</p>
             </div>
 
             <div>
-              <h3 className="text-white font-medium mb-2">2. Account Responsibility</h3>
-              <p>Users must maintain confidentiality of login credentials and financial information.</p>
+              <h3 className="text-white font-medium mb-2">2. Account Security</h3>
+              <p>Users are responsible for maintaining the confidentiality of account credentials.</p>
             </div>
 
             <div>
-              <h3 className="text-white font-medium mb-2">3. Transaction Policy</h3>
-              <p>Transaction speed depends on banking networks and UPI provider availability.</p>
+              <h3 className="text-white font-medium mb-2">3. Transaction Processing</h3>
+              <p>Transaction speed depends on banking networks and UPI availability.</p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">4. Platform Availability</h3>
-              <p>Service uptime may vary due to maintenance or technical issues.</p>
+              <p>Service uptime may vary during maintenance or technical issues.</p>
             </div>
 
             <div>
@@ -95,33 +93,28 @@ export default function Home() {
               <p>ElitePay reserves the right to suspend accounts involved in suspicious activities.</p>
             </div>
 
-            <div>
-              <h3 className="text-white font-medium mb-2">6. Legal Jurisdiction</h3>
-              <p>All disputes are governed under applicable Indian laws.</p>
-            </div>
-
           </div>
         </div>
       </section>
 
-      {/* INR Animation Styles */}
+      {/* Animation CSS */}
       <style jsx>{`
-        .inr {
+        .rupee {
           position: absolute;
-          font-size: 80px;
+          font-size: 90px;
           font-weight: bold;
           color: rgba(255,255,255,0.05);
-          animation: float 12s infinite linear;
+          animation: floatUp 10s linear infinite;
         }
 
-        .inr1 { left: 10%; animation-delay: 0s; }
-        .inr2 { left: 40%; animation-delay: 3s; }
-        .inr3 { left: 70%; animation-delay: 6s; }
-        .inr4 { left: 85%; animation-delay: 9s; }
+        .r1 { left: 10%; animation-delay: 0s; }
+        .r2 { left: 40%; animation-delay: 2s; }
+        .r3 { left: 70%; animation-delay: 4s; }
+        .r4 { left: 85%; animation-delay: 6s; }
 
-        @keyframes float {
-          0% { top: 100%; transform: rotate(0deg); }
-          100% { top: -10%; transform: rotate(360deg); }
+        @keyframes floatUp {
+          0% { transform: translateY(100vh) rotate(0deg); }
+          100% { transform: translateY(-120vh) rotate(360deg); }
         }
       `}</style>
 
