@@ -1,151 +1,131 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Landmark,
-  TrendingUp,
-  CheckSquare,
-  User,
-  LayoutGrid,
-  LogOut,
-  Download,
-} from "lucide-react";
-import WithdrawModal from "../../components/WithdrawModal";
+import { useState } from "react";
 
-export default function Dashboard() {
-  const router = useRouter();
-  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
-  const [userName, setUserName] = useState("");
+export default function LoginPage() {
+  const [signup, setSignup] = useState(true);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    const storedName = localStorage.getItem("userName");
+  const handleSubmit = () => {
+    setError("");
 
-    if (!isLoggedIn) {
-      router.push("/login");
+    if (signup) {
+      // SAVE USER
+      const userData = { fullName, email, phone, password };
+      localStorage.setItem("user", JSON.stringify(userData));
+
+      alert("Account Created Successfully!");
+      setSignup(false);
+      return;
     }
 
-    if (storedName) {
-      setUserName(storedName);
+    // LOGIN
+    const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if (
+      email === savedUser.email &&
+      password === savedUser.password
+    ) {
+      // ✅ IMPORTANT FIX
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem(
+        "userName",
+        savedUser.fullName || email.split("@")[0]
+      );
+
+      // Hard redirect (no flash)
+      window.location.replace("/dashboard");
+    } else {
+      setError("Invalid Email or Password");
     }
-  }, [router]);
+  };
 
   return (
-    <main className="min-h-screen px-4 py-6 text-white bg-gradient-to-b from-[#071c3b] to-[#04162e]">
+    <div className="min-h-screen bg-[#071c3b] flex items-center justify-center px-4 text-white">
+      <div className="w-full max-w-md bg-[#0b234a] p-8 rounded-2xl border border-blue-800">
 
-      {/* NAVBAR */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <img
-            src="/IMG_20260303_022001_156.jpg"
-            alt="ElitePay"
-            className="w-12 h-12 rounded-lg object-cover"
+        <h2 className="text-2xl font-semibold mb-6 text-center text-blue-400">
+          {signup ? "Create your account" : "Login"}
+        </h2>
+
+        {signup && (
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
-          <span className="text-2xl font-semibold text-blue-400 tracking-wide">
-            ElitePay
-          </span>
-        </div>
+        )}
 
-        <div className="flex items-center gap-5 text-blue-400">
-          <User size={22} />
-          <LayoutGrid size={22} />
-          <LogOut
-            size={22}
-            className="cursor-pointer"
-            onClick={() => {
-              localStorage.removeItem("isLoggedIn");
-              localStorage.removeItem("userName");
-              router.push("/login");
-            }}
+        <input
+          type="email"
+          placeholder="Email Address"
+          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        {signup && (
+          <input
+            type="text"
+            placeholder="Phone Number"
+            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
-        </div>
-      </div>
+        )}
 
-      {/* WELCOME TEXT */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-white">
-          Welcome,{" "}
-          <span className="text-blue-500">
-            {userName ? userName : "User"}
-          </span>
-        </h1>
-        <p className="text-gray-400 mt-1 text-sm">
-          Manage your funds, exchange & withdrawals
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        {error && (
+          <p className="text-red-400 text-sm mb-3 text-center">
+            {error}
+          </p>
+        )}
+
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold"
+        >
+          {signup ? "Create Account" : "Login"}
+        </button>
+
+        <p className="mt-6 text-center text-gray-400 text-sm">
+          {signup ? (
+            <>
+              Already have an account?{" "}
+              <span
+                onClick={() => setSignup(false)}
+                className="text-blue-400 cursor-pointer"
+              >
+                Login
+              </span>
+            </>
+          ) : (
+            <>
+              Don’t have an account?{" "}
+              <span
+                onClick={() => setSignup(true)}
+                className="text-blue-400 cursor-pointer"
+              >
+                Sign up
+              </span>
+            </>
+          )}
         </p>
-      </div>
-
-      {/* TOTAL FUNDS */}
-      <div className="bg-[#0c1628] rounded-3xl p-6 mb-8 border border-blue-900/30 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
-        <p className="text-gray-400 text-sm">Total Funds Available</p>
-        <h1 className="text-4xl font-bold text-blue-500 mt-3 tracking-wide">
-          ₹7,59,39,895
-        </h1>
-        <p className="text-gray-500 text-sm mt-2">
-          8,00,00,000+ INR portfolio
-        </p>
-      </div>
-
-      {/* FUND CARDS */}
-      <div className="space-y-6">
-
-        {[
-          {
-            name: "Pure Fund",
-            amount: "₹1,23,31,961",
-            icon: <Landmark size={22} />,
-            iconBg: "bg-blue-500/15",
-            iconColor: "text-blue-400"
-          },
-          {
-            name: "Stock Fund",
-            amount: "₹2,30,04,512",
-            icon: <TrendingUp size={22} />,
-            iconBg: "bg-green-500/15",
-            iconColor: "text-green-400"
-          },
-          {
-            name: "Political Fund",
-            amount: "₹4,06,03,422",
-            icon: <CheckSquare size={22} />,
-            iconBg: "bg-yellow-500/15",
-            iconColor: "text-yellow-400"
-          },
-        ].map((fund, i) => (
-          <div
-            key={i}
-            className="bg-[#0c1628] rounded-3xl p-6 border border-blue-900/30 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className={`p-3 rounded-xl ${fund.iconBg}`}>
-                <div className={fund.iconColor}>
-                  {fund.icon}
-                </div>
-              </div>
-
-              <div>
-                <p className="text-gray-400 text-sm">{fund.name}</p>
-                <p className="text-2xl font-semibold">{fund.amount}</p>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setShowWithdrawModal(true)}
-              className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-blue-600 text-blue-400 hover:bg-blue-600/10 transition"
-            >
-              <Download size={18} />
-              Withdraw
-            </button>
-          </div>
-        ))}
 
       </div>
-
-      <WithdrawModal
-        show={showWithdrawModal}
-        onClose={() => setShowWithdrawModal(false)}
-      />
-
-    </main>
+    </div>
   );
-  }
+      }
