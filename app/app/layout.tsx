@@ -1,8 +1,6 @@
-import "./globals.css";
-
 export const metadata = {
   title: "ElitePay",
-  description: "Secure Payment Gateway",
+  description: "Premium Fintech Dashboard",
 };
 
 export default function RootLayout({
@@ -12,7 +10,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body style={{ margin: 0 }}>
+        {children}
+      </body>
     </html>
   );
 }
