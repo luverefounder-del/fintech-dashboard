@@ -57,6 +57,44 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TERMS RESTORED */}
+      <section className="relative z-20 bg-[#081a3a] px-6 py-16">
+        <div className="max-w-4xl mx-auto bg-[#0d1f45] p-8 rounded-2xl shadow-2xl border border-blue-900">
+          <h2 className="text-2xl font-semibold text-white mb-8 border-b border-blue-800 pb-4">
+            Terms & Conditions
+          </h2>
+
+          <div className="space-y-6 text-gray-300 text-sm leading-7">
+
+            <div>
+              <h3 className="text-white font-medium mb-2">1. User Agreement</h3>
+              <p>By accessing ElitePay, you agree to comply with all financial and regulatory guidelines.</p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">2. Account Responsibility</h3>
+              <p>Users are responsible for safeguarding login credentials and transaction data.</p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">3. Transaction Processing</h3>
+              <p>Processing time may vary depending on banking network availability.</p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">4. Service Availability</h3>
+              <p>Service uptime is subject to maintenance and system updates.</p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">5. Legal Compliance</h3>
+              <p>All operations are governed under applicable Indian laws.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <style jsx>{`
         .rupee {
           position: absolute;
