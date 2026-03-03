@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [icons, setIcons] = useState<
-    { id: number; left: number; delay: number }[]
+    { id: number; left: number; duration: number }[]
   >([]);
 
   useEffect(() => {
-    const generated = Array.from({ length: 20 }).map((_, i) => ({
+    const generated = Array.from({ length: 15 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
-      delay: Math.random() * 15,
+      duration: 10 + Math.random() * 10,
     }));
     setIcons(generated);
   }, []);
@@ -20,14 +20,15 @@ export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#071225] to-[#0c1f3f] text-white">
 
-      {/* INR Floating Icons */}
+      {/* Floating INR Icons */}
       {icons.map((icon) => (
         <div
           key={icon.id}
-          className="absolute text-blue-500/10 text-4xl animate-bounce"
+          className="absolute text-blue-500/10 text-4xl animate-pulse"
           style={{
             left: `${icon.left}%`,
-            top: `${icon.delay * 5}%`,
+            top: `${Math.random() * 100}%`,
+            animationDuration: `${icon.duration}s`,
           }}
         >
           ₹
@@ -35,16 +36,24 @@ export default function Home() {
       ))}
 
       {/* Navbar */}
-      <div className="flex items-center px-6 py-5">
-        <img src="/logo.png" className="w-10 h-10 rounded-md mr-3" />
+      <div className="flex items-center px-6 py-5 relative z-10">
+        <img
+          src="/logo.jpg"
+          alt="ElitePay Logo"
+          className="w-10 h-10 rounded-md object-cover mr-3"
+        />
         <h1 className="text-2xl font-semibold text-blue-400">ElitePay</h1>
       </div>
 
-      {/* Hero */}
-      <div className="flex flex-col items-center text-center mt-16 px-6">
+      {/* Hero Section */}
+      <div className="flex flex-col items-center text-center mt-16 px-6 relative z-10">
 
-        <div className="bg-white rounded-3xl p-6 shadow-2xl mb-8">
-          <img src="/logo.png" className="w-32 mx-auto" />
+        <div className="bg-white rounded-3xl p-8 shadow-2xl mb-8">
+          <img
+            src="/logo.jpg"
+            alt="ElitePay Logo"
+            className="w-36 mx-auto object-contain"
+          />
         </div>
 
         <div className="px-6 py-3 rounded-full border border-blue-500/40 bg-blue-500/10 mb-10">
@@ -64,10 +73,9 @@ export default function Home() {
         <p className="text-gray-400 text-lg max-w-xl mt-8 leading-relaxed">
           Process payments seamlessly with ElitePay — trusted by 50,000+
           merchants across India. Lightning-fast UPI transactions with 99.99%
-          uptime.
+          uptime and enterprise-grade security infrastructure.
         </p>
 
-        {/* Only Start Earning Button */}
         <div className="mt-12">
           <Link href="/dashboard">
             <button className="px-10 py-5 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 transition text-lg font-semibold shadow-xl">
@@ -77,22 +85,75 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Terms */}
-      <div className="mt-24 px-6 pb-32 max-w-3xl mx-auto">
-        <h2 className="text-3xl font-semibold text-blue-400 mb-6">
-          Terms & Conditions
-        </h2>
+      {/* Terms & Conditions */}
+      <div className="mt-28 px-6 pb-32 max-w-4xl mx-auto relative z-10">
+        <div className="bg-[#0f254a] rounded-2xl p-8 border border-blue-500/20 shadow-lg">
 
-        <div className="space-y-6 text-gray-400 text-sm leading-relaxed">
-          {Array.from({ length: 30 }).map((_, i) => (
-            <p key={i}>
-              {i + 1}. By accessing this platform, you agree to comply with all
-              operational policies, verification procedures, regulatory
-              standards, and usage guidelines. The platform reserves full
-              authority to restrict or suspend accounts in case of suspicious
-              activity, misuse, or policy violations.
+          <h2 className="text-3xl font-semibold text-blue-400 mb-6">
+            Terms & Conditions
+          </h2>
+
+          <div className="space-y-6 text-gray-300 text-sm leading-relaxed">
+
+            <p>
+              <strong>1. Account Usage:</strong> Users must provide accurate and
+              verified information during registration. Misrepresentation of
+              identity or financial details may result in suspension.
             </p>
-          ))}
+
+            <p>
+              <strong>2. Compliance:</strong> All transactions must comply with
+              applicable financial regulations and anti-money laundering laws.
+            </p>
+
+            <p>
+              <strong>3. Security:</strong> Users are responsible for
+              maintaining confidentiality of login credentials and account
+              access.
+            </p>
+
+            <p>
+              <strong>4. Transaction Monitoring:</strong> ElitePay reserves the
+              right to monitor, review, and temporarily hold transactions for
+              compliance and security verification.
+            </p>
+
+            <p>
+              <strong>5. Service Availability:</strong> While we strive for
+              99.99% uptime, temporary interruptions may occur due to
+              maintenance or technical upgrades.
+            </p>
+
+            <p>
+              <strong>6. Risk Disclosure:</strong> Digital transactions involve
+              inherent risks including system errors, third-party failures, and
+              regulatory changes.
+            </p>
+
+            <p>
+              <strong>7. Account Suspension:</strong> Any suspicious activity,
+              policy violations, or misuse of services may result in immediate
+              account restriction without prior notice.
+            </p>
+
+            <p>
+              <strong>8. Data Protection:</strong> User information is handled
+              in accordance with privacy regulations and industry security
+              standards.
+            </p>
+
+            <p>
+              <strong>9. Amendments:</strong> Terms may be updated periodically.
+              Continued usage implies acceptance of revised policies.
+            </p>
+
+            <p>
+              <strong>10. Limitation of Liability:</strong> ElitePay shall not
+              be liable for indirect losses arising from service interruptions
+              or external system failures.
+            </p>
+
+          </div>
         </div>
       </div>
 
