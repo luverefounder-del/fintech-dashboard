@@ -1,55 +1,49 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import WithdrawModal from "../../components/WithdrawModal";
 
 export default function Dashboard() {
-  const [authReady, setAuthReady] = useState(false);
   const [userName, setUserName] = useState("");
-  const [showWithdraw, setShowWithdraw] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [showPackage, setShowPackage] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
 
   useEffect(() => {
-    const logged = localStorage.getItem("isLoggedIn");
+    const cookies = document.cookie.split("; ");
+    const logged = cookies.find((c) =>
+      c.startsWith("isLoggedIn=")
+    );
 
-    if (logged === "true") {
-      const name = localStorage.getItem("userName");
-      setUserName(name || "User");
-      setAuthReady(true);
-    } else {
+    if (!logged) {
       window.location.href = "/login";
+      return;
     }
+
+    const nameCookie = cookies.find((c) =>
+      c.startsWith("userName=")
+    );
+
+    if (nameCookie) {
+      setUserName(decodeURIComponent(nameCookie.split("=")[1]));
+    }
+
+    setReady(true);
   }, []);
 
-  if (!authReady) return null;
+  if (!ready) return null;
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#060f1f] text-white px-6 py-6">
+    <div className="min-h-screen bg-[#060f1f] text-white px-6 py-6">
 
-      {/* Background Glow */}
-      <div className="absolute top-[-200px] left-[-150px] w-[500px] h-[500px] bg-blue-600/20 blur-[150px] rounded-full"></div>
-      <div className="absolute bottom-[-200px] right-[-150px] w-[500px] h-[500px] bg-blue-600/20 blur-[150px] rounded-full"></div>
-
-      {/* Header */}
-      <div className="relative z-10 mb-6">
-        <h1 className="text-2xl font-semibold tracking-wide">
-          Welcome,{" "}
-          <span className="text-[#4f8cff]">{userName}</span>
-        </h1>
-        <p className="text-gray-400 mt-1 text-sm">
-          Manage your funds, exchange & withdrawals
-        </p>
-      </div>
-
-      {/* Total Funds Card */}
-      <div className="relative z-10 bg-gradient-to-br from-[#0d1c33] to-[#091626] 
-        backdrop-blur-xl border border-white/10 
-        rounded-3xl p-6 mb-8 shadow-[0_0_60px_rgba(0,0,0,0.4)]">
+      {/* TOTAL FUNDS */}
+      <div className="bg-gradient-to-br from-[#0d1c33] to-[#091626]
+        rounded-3xl p-6 mb-8 border border-white/10">
 
         <p className="text-gray-400 text-sm">
           Total Funds Available
         </p>
 
-        <h1 className="text-4xl font-bold text-[#4f8cff] mt-3 tracking-wide">
+        <h1 className="text-4xl font-bold text-[#4f8cff] mt-3">
           ₹7,76,85,830
         </h1>
 
@@ -58,47 +52,93 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Fund Cards */}
-      <div className="relative z-10 space-y-6">
+      {/* FUNDS */}
+      {[
+        { name: "Pure Fund", amount: "₹1,14,11,990" },
+        { name: "Stock Fund", amount: "₹2,03,78,348" },
+        { name: "Political Fund", amount: "₹4,58,95,492" },
+      ].map((fund, i) => (
+        <div
+          key={i}
+          className="bg-gradient-to-br from-[#0d1c33] to-[#091626]
+          rounded-3xl p-6 mb-6 border border-white/10"
+        >
+          <p className="text-gray-400 text-sm mb-2">
+            {fund.name}
+          </p>
 
-        {[
-          { name: "Pure Fund", amount: "₹1,14,11,990" },
-          { name: "Stock Fund", amount: "₹2,03,78,348" },
-          { name: "Political Fund", amount: "₹4,58,95,492" },
-        ].map((fund, i) => (
-          <div
-            key={i}
-            className="bg-gradient-to-br from-[#0d1c33] to-[#091626]
-            backdrop-blur-xl border border-white/10
-            rounded-3xl p-6 shadow-[0_0_40px_rgba(0,0,0,0.4)]"
+          <p className="text-2xl font-semibold mb-5">
+            {fund.amount}
+          </p>
+
+          <button
+            onClick={() => setShowPackage(true)}
+            className="w-full py-3 rounded-2xl
+            border border-[#4f8cff]
+            text-[#4f8cff]
+            hover:bg-[#4f8cff]/10 transition"
           >
-            <p className="text-gray-400 text-sm mb-2 tracking-wide">
-              {fund.name}
-            </p>
+            Withdraw
+          </button>
+        </div>
+      ))}
 
-            <p className="text-2xl font-semibold mb-5 text-white tracking-wide">
-              {fund.amount}
-            </p>
+      {/* PACKAGE MODAL */}
+      {showPackage && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center">
+          <div className="bg-[#0d1c33] p-6 rounded-2xl w-[90%] max-w-md">
+            <h2 className="text-center text-lg mb-6">
+              Select Deposit Package
+            </h2>
+
+            {["₹5,000", "₹10,000", "₹20,000"].map((p, i) => (
+              <div
+                key={i}
+                onClick={() => {
+                  setShowPackage(false);
+                  setShowPayment(true);
+                }}
+                className="bg-[#091626] p-4 mb-4 rounded-xl text-center cursor-pointer hover:bg-[#4f8cff]/10"
+              >
+                {p}
+              </div>
+            ))}
 
             <button
-              onClick={() => setShowWithdraw(true)}
-              className="w-full py-3 rounded-2xl 
-              border border-[#4f8cff] 
-              text-[#4f8cff] 
-              hover:bg-[#4f8cff]/10 
-              transition duration-300"
+              onClick={() => setShowPackage(false)}
+              className="text-gray-400 text-sm w-full mt-2"
             >
-              Withdraw
+              Cancel
             </button>
           </div>
-        ))}
+        </div>
+      )}
 
-      </div>
+      {/* PAYMENT MODAL */}
+      {showPayment && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center">
+          <div className="bg-[#0d1c33] p-6 rounded-2xl w-[90%] max-w-md">
+            <h2 className="text-center text-lg mb-6">
+              Select Payment Method
+            </h2>
 
-      <WithdrawModal
-        show={showWithdraw}
-        onClose={() => setShowWithdraw(false)}
-      />
+            <div className="bg-[#091626] p-4 mb-4 rounded-xl text-center cursor-pointer hover:bg-[#4f8cff]/10">
+              UPI Transfer
+            </div>
+
+            <div className="bg-[#091626] p-4 mb-4 rounded-xl text-center cursor-pointer hover:bg-[#4f8cff]/10">
+              USDT (TRC20)
+            </div>
+
+            <button
+              onClick={() => setShowPayment(false)}
+              className="text-gray-400 text-sm w-full mt-2"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
