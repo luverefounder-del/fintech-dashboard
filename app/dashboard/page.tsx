@@ -8,12 +8,12 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("user");
 
-    if (!savedUser) {
+    if (!storedUser) {
       router.push("/login");
     } else {
-      setUser(JSON.parse(savedUser));
+      setUser(JSON.parse(storedUser));
     }
   }, [router]);
 
@@ -30,7 +30,7 @@ export default function DashboardPage() {
         Manage your funds, exchange & withdrawals
       </p>
 
-      {/* Total Funds Card */}
+      {/* Total Funds */}
       <div className="bg-[#0d1b2a] rounded-2xl p-6 mb-6 border border-[#1f2c3d]">
         <p className="text-gray-400 mb-2">Total Funds Available</p>
         <h1 className="text-4xl font-bold text-blue-500">
