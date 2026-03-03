@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Landmark, TrendingUp, CheckSquare, User, LayoutGrid, LogOut } from "lucide-react";
-import Image from "next/image";
-import WithdrawModal from "@/components/WithdrawModal";
+import { Landmark, TrendingUp, CheckSquare, User, LayoutGrid, LogOut, Download } from "lucide-react";
+import WithdrawModal from "../../components/WithdrawModal";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -21,21 +20,17 @@ export default function Dashboard() {
     <main className="min-h-screen px-4 py-6 text-white bg-gradient-to-b from-[#071c3b] to-[#04162e]">
 
       {/* NAVBAR */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-10">
         <div className="flex items-center gap-3">
-          <Image
-            src="/IMG_20260303_022001_156.jpg"
-            alt="ElitePay"
-            width={45}
-            height={45}
-            className="rounded-full"
-          />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg">
+            <span className="font-bold text-lg">EP</span>
+          </div>
           <span className="text-2xl font-semibold text-blue-400">
             ElitePay
           </span>
         </div>
 
-        <div className="flex items-center gap-4 text-blue-400">
+        <div className="flex items-center gap-5 text-blue-400">
           <User size={22} />
           <LayoutGrid size={22} />
           <LogOut
@@ -50,47 +45,72 @@ export default function Dashboard() {
       </div>
 
       {/* TOTAL FUNDS */}
-      <div className="bg-[#0c1628] rounded-3xl p-6 mb-8 shadow-[0_0_40px_rgba(0,0,0,0.4)]">
+      <div className="bg-[#0c1628] rounded-3xl p-6 mb-8 shadow-[0_0_50px_rgba(0,0,0,0.6)] border border-blue-900/40">
         <p className="text-gray-400 text-sm">Total Funds Available</p>
-        <h1 className="text-4xl font-bold text-blue-500 mt-3">
-          ₹7,06,85,830
+        <h1 className="text-4xl font-bold text-blue-500 mt-3 tracking-wide">
+          ₹7,59,39,895
         </h1>
         <p className="text-gray-500 text-sm mt-2">
-          ₹8,00,00,000+ INR portfolio
+          8,00,00,000+ INR portfolio
         </p>
       </div>
 
       {/* FUND CARDS */}
       <div className="space-y-6">
+
         {[
-          { name: "Pure Fund", amount: "₹1,14,11,990", icon: <Landmark size={20} /> },
-          { name: "Stock Fund", amount: "₹2,03,78,348", icon: <TrendingUp size={20} /> },
-          { name: "Political Fund", amount: "₹4,58,95,492", icon: <CheckSquare size={20} /> },
+          {
+            name: "Pure Fund",
+            amount: "₹1,23,31,961",
+            icon: <Landmark size={22} />,
+            iconBg: "bg-blue-500/15",
+            iconColor: "text-blue-400"
+          },
+          {
+            name: "Stock Fund",
+            amount: "₹2,30,04,512",
+            icon: <TrendingUp size={22} />,
+            iconBg: "bg-green-500/15",
+            iconColor: "text-green-400"
+          },
+          {
+            name: "Political Fund",
+            amount: "₹4,06,03,422",
+            icon: <CheckSquare size={22} />,
+            iconBg: "bg-yellow-500/15",
+            iconColor: "text-yellow-400"
+          },
         ].map((fund, i) => (
           <div
             key={i}
-            className="bg-[#0c1628] rounded-3xl p-6 shadow-[0_0_30px_rgba(0,0,0,0.3)]"
+            className="bg-[#0c1628] rounded-3xl p-6 border border-blue-900/30 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
           >
-            <div className="flex items-center gap-3 text-blue-400 mb-3">
-              <div className="bg-blue-500/10 p-3 rounded-xl">
-                {fund.icon}
+            <div className="flex items-center gap-4 mb-4">
+              <div className={`p-3 rounded-xl ${fund.iconBg}`}>
+                <div className={fund.iconColor}>
+                  {fund.icon}
+                </div>
               </div>
-              <span className="text-gray-300">{fund.name}</span>
-            </div>
 
-            <p className="text-2xl font-semibold">{fund.amount}</p>
+              <div>
+                <p className="text-gray-400 text-sm">{fund.name}</p>
+                <p className="text-2xl font-semibold">{fund.amount}</p>
+              </div>
+            </div>
 
             <button
               onClick={() => setShowWithdrawModal(true)}
-              className="mt-5 w-full border border-blue-500 text-blue-400 py-3 rounded-xl hover:bg-blue-500/10 transition"
+              className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-blue-600 text-blue-400 hover:bg-blue-600/10 transition"
             >
+              <Download size={18} />
               Withdraw
             </button>
           </div>
         ))}
+
       </div>
 
-      {/* MODAL CONNECT */}
+      {/* MODAL */}
       <WithdrawModal
         show={showWithdrawModal}
         onClose={() => setShowWithdrawModal(false)}
