@@ -8,25 +8,13 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <main className="relative min-h-screen overflow-hidden text-white">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#0a1628] via-[#081225] to-[#050b1a] text-white overflow-hidden">
 
-      {/* Background Image */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src="/IMG_20260303_022001_156.jpg"
-          alt="background"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-[#050b1a]/85" />
-      </div>
-
-      {/* Radial Blue Glow */}
-      <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/30 blur-[180px] rounded-full -z-10" />
+      {/* Blue Glow Background */}
+      <div className="absolute top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 blur-[160px] rounded-full pointer-events-none" />
 
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-6 py-6 max-w-6xl mx-auto">
+      <nav className="relative z-10 flex items-center justify-between px-6 py-6 max-w-6xl mx-auto">
         <div className="flex items-center gap-3">
           <Image
             src="/logo.jpg"
@@ -45,8 +33,8 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="flex flex-col items-center text-center px-6 mt-16">
+      {/* Hero */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 mt-16">
 
         {/* Center Logo Card */}
         <div className="bg-white rounded-3xl p-6 shadow-2xl">
@@ -85,7 +73,7 @@ export default function Home() {
           Start Earning
         </button>
 
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }
