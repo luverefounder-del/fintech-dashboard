@@ -4,120 +4,75 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div style={styles.wrapper}>
-      
+    <div className="min-h-screen bg-gradient-to-br from-[#071426] via-[#0b1f3a] to-[#071426] text-white flex flex-col items-center">
+
       {/* NAVBAR */}
-      <nav style={styles.nav}>
-        <div style={styles.logoBox}>
-          <img src="/logo.jpg" alt="ElitePay" style={styles.logo} />
-          <h2 style={styles.brand}>ElitePay</h2>
+      <nav className="w-full max-w-6xl flex justify-between items-center p-6">
+        <div className="flex items-center gap-3">
+          <img
+            src="/logo.jpg"
+            alt="ElitePay"
+            className="w-12 h-12 rounded-lg object-cover"
+          />
+          <h2 className="text-2xl font-semibold text-blue-400">ElitePay</h2>
         </div>
       </nav>
 
-      {/* HERO */}
-      <section style={styles.hero}>
-        <div style={styles.badge}>
-          ⚡ India's #1 Trusted Payment Gateway
+      {/* HERO CARD */}
+      <div className="w-full max-w-xl bg-[#0f223f]/60 backdrop-blur-lg border border-blue-500/20 rounded-3xl p-8 text-center shadow-2xl">
+
+        <img
+          src="/logo.jpg"
+          alt="ElitePay"
+          className="w-28 h-28 mx-auto rounded-2xl shadow-lg mb-6"
+        />
+
+        <div className="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-400/30 px-4 py-2 rounded-full text-blue-300 text-sm mb-6">
+          ✨ India's #1 UPI Gateway
         </div>
 
-        <h1 style={styles.heading}>
-          Secure & Instant <br />
-          <span style={styles.blue}>Payment Solutions</span>
+        <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+          Next-Gen <br />
+          <span className="text-blue-400">Secure</span> <br />
+          Payment Gateway
         </h1>
 
-        <p style={styles.text}>
-          Process payments seamlessly with ElitePay — trusted by 50,000+
-          merchants across India. Lightning-fast UPI transactions with 99.99% uptime.
+        <p className="text-gray-300 mb-8 text-lg">
+          Track payments, manage bank accounts & QR codes with
+          enterprise-level security. Trusted by 10,000+ merchants across India.
         </p>
 
         <Link href="/signup">
-          <button style={styles.button}>Start Earning</button>
+          <button className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:opacity-90 transition text-lg font-semibold shadow-lg">
+            Get Started Free →
+          </button>
         </Link>
-      </section>
 
-      {/* TERMS */}
-      <section style={styles.terms}>
-        <h2 style={styles.termsTitle}>Terms & Conditions</h2>
+        {/* STATS */}
+        <div className="flex justify-between mt-10 text-center text-sm text-gray-300">
+          <div>
+            <p className="text-xl font-bold text-white">10K+</p>
+            <p>Merchants</p>
+          </div>
+          <div>
+            <p className="text-xl font-bold text-white">₹8.4Cr</p>
+            <p>Processed</p>
+          </div>
+          <div>
+            <p className="text-xl font-bold text-white">99.99%</p>
+            <p>Uptime</p>
+          </div>
+        </div>
 
-        <p><b>1. Acceptance of Terms:</b> By accessing ElitePay, you agree to comply with financial regulations and RBI compliance policies.</p>
-        <p><b>2. Eligibility:</b> Users must be 18+ and provide valid KYC including PAN, Aadhaar and bank verification.</p>
-        <p><b>3. Services:</b> We provide UPI processing, merchant settlements and transaction monitoring services.</p>
-        <p><b>4. Compliance:</b> All transactions are monitored under AML and RBI guidelines.</p>
-        <p><b>5. Fraud Policy:</b> Suspicious accounts may be frozen without notice.</p>
-        <p><b>6. Refund Policy:</b> Settlement timelines depend on banking network policies.</p>
-        <p><b>7. Account Responsibility:</b> Users are responsible for protecting their login credentials.</p>
-        <p><b>8. Termination:</b> Accounts violating policies may be terminated permanently.</p>
-      </section>
+      </div>
+
+      {/* BOTTOM FEATURES STRIP */}
+      <div className="w-full max-w-xl mt-8 bg-[#0f223f]/50 border border-blue-500/20 rounded-xl py-4 px-6 flex justify-between text-sm text-gray-300">
+        <span>UPI</span>
+        <span>₹ 99.99% Uptime</span>
+        <span>256-bit Encryption</span>
+      </div>
+
     </div>
   );
 }
-
-const styles: any = {
-  wrapper: {
-    background: "linear-gradient(135deg, #0f172a, #0b1b34)",
-    minHeight: "100vh",
-    color: "white",
-    fontFamily: "Arial, sans-serif",
-  },
-  nav: {
-    padding: "20px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  logoBox: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
-  logo: {
-    width: "45px",
-    height: "45px",
-    borderRadius: "8px",
-  },
-  brand: {
-    color: "#4f9cff",
-  },
-  hero: {
-    textAlign: "center",
-    padding: "60px 20px",
-  },
-  badge: {
-    background: "#1e3a8a",
-    display: "inline-block",
-    padding: "8px 18px",
-    borderRadius: "20px",
-    marginBottom: "20px",
-  },
-  heading: {
-    fontSize: "42px",
-    fontWeight: "bold",
-    marginBottom: "20px",
-  },
-  blue: {
-    color: "#4f9cff",
-  },
-  text: {
-    maxWidth: "600px",
-    margin: "0 auto 30px",
-    opacity: 0.8,
-  },
-  button: {
-    padding: "12px 30px",
-    background: "#4f9cff",
-    border: "none",
-    borderRadius: "8px",
-    color: "white",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-  terms: {
-    padding: "60px 20px",
-    background: "#0c1424",
-    lineHeight: "1.7",
-  },
-  termsTitle: {
-    marginBottom: "20px",
-    color: "#4f9cff",
-  },
-};
