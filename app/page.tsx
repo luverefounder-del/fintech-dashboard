@@ -41,7 +41,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="relative z-10 text-center px-6 pt-16">
         <div className="bg-white p-6 rounded-2xl inline-block shadow-xl">
           <img
