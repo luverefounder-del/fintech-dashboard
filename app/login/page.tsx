@@ -14,9 +14,14 @@ export default function LoginPage() {
     setError("");
 
     if (signup) {
+      if (!fullName || !email || !phone || !password) {
+        setError("Please fill all fields");
+        return;
+      }
+
       const userData = { fullName, email, phone, password };
       localStorage.setItem("user", JSON.stringify(userData));
-      alert("Account created successfully");
+      alert("Account Created Successfully");
       setSignup(false);
       return;
     }
@@ -33,17 +38,17 @@ export default function LoginPage() {
         savedUser.fullName || email.split("@")[0]
       );
 
-      window.location.replace("/dashboard");
+      window.location.href = "/dashboard";
     } else {
       setError("Invalid Email or Password");
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050f1f] flex items-center justify-center px-4 text-white">
-      <div className="w-full max-w-md bg-[#0b1c33] p-8 rounded-2xl border border-[#1e3a8a]">
+    <div className="min-h-screen bg-[#060f1f] flex items-center justify-center px-4 text-white">
+      <div className="w-full max-w-md bg-[#0d1c33] p-8 rounded-2xl border border-white/10">
 
-        <h2 className="text-2xl font-semibold mb-6 text-center text-[#3b82f6]">
+        <h2 className="text-2xl font-semibold mb-6 text-center text-[#4f8cff]">
           {signup ? "Create your account" : "Login"}
         </h2>
 
@@ -51,7 +56,7 @@ export default function LoginPage() {
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
+            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
@@ -60,7 +65,7 @@ export default function LoginPage() {
         <input
           type="email"
           placeholder="Email Address"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
+          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -69,7 +74,7 @@ export default function LoginPage() {
           <input
             type="text"
             placeholder="Phone Number"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
+            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -78,18 +83,20 @@ export default function LoginPage() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#081426]"
+          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#091626]"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
         {error && (
-          <p className="text-red-400 text-sm mb-3 text-center">{error}</p>
+          <p className="text-red-400 text-sm mb-3 text-center">
+            {error}
+          </p>
         )}
 
         <button
           onClick={handleSubmit}
-          className="w-full bg-[#3b82f6] hover:opacity-90 py-3 rounded-lg font-semibold"
+          className="w-full bg-[#4f8cff] py-3 rounded-lg font-semibold hover:opacity-90 transition"
         >
           {signup ? "Create Account" : "Login"}
         </button>
@@ -100,7 +107,7 @@ export default function LoginPage() {
               Already have an account?{" "}
               <span
                 onClick={() => setSignup(false)}
-                className="text-[#3b82f6] cursor-pointer"
+                className="text-[#4f8cff] cursor-pointer"
               >
                 Login
               </span>
@@ -110,7 +117,7 @@ export default function LoginPage() {
               Don’t have an account?{" "}
               <span
                 onClick={() => setSignup(true)}
-                className="text-[#3b82f6] cursor-pointer"
+                className="text-[#4f8cff] cursor-pointer"
               >
                 Sign up
               </span>
