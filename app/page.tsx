@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Home() {
   return (
@@ -16,15 +15,25 @@ export default function Home() {
       {/* Header */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-blue-900 relative z-10">
         <div className="flex items-center gap-2">
-          <Image src="/logo.jpg" alt="logo" width={40} height={40} className="rounded-md" />
-          <span className="text-blue-400 font-semibold text-lg">ElitePay</span>
+          <img
+            src="/logo.jpg?v=1"
+            alt="ElitePay Logo"
+            className="w-10 h-10 rounded-md object-cover"
+          />
+          <span className="text-blue-400 font-semibold text-lg">
+            ElitePay
+          </span>
         </div>
       </header>
 
       {/* Hero */}
       <section className="relative z-10 text-center px-6 pt-16">
         <div className="bg-white p-6 rounded-2xl inline-block shadow-xl">
-          <Image src="/logo.jpg" alt="center logo" width={180} height={180} className="rounded-xl" />
+          <img
+            src="/logo.jpg?v=1"
+            alt="ElitePay"
+            className="w-44 h-44 rounded-xl object-cover"
+          />
         </div>
 
         <div className="mt-6 px-6 py-2 border border-blue-500 rounded-full text-blue-400 inline-block">
@@ -65,6 +74,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* INR Animation CSS */}
       <style jsx>{`
         .rupee {
           position: absolute;
@@ -82,6 +92,7 @@ export default function Home() {
           100% { transform: translateY(0px); }
         }
       `}</style>
+
     </div>
   );
 }
