@@ -16,9 +16,9 @@ export default function Home() {
       <nav className="relative z-20 flex items-center px-6 py-4 bg-[#081a3a] border-b border-blue-900">
         <div className="flex items-center gap-3">
           <img
-            src="/elite.png"
+            src="/IMG_20260303_022001_156.jpg"
             alt="ElitePay"
-            className="w-10 h-10 rounded-md"
+            className="w-10 h-10 rounded-md object-cover"
           />
           <span className="text-xl font-semibold text-blue-400">
             ElitePay
@@ -26,7 +26,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="relative z-20 text-center px-6 py-16">
 
         <div className="flex justify-center mb-8">
@@ -70,47 +70,70 @@ export default function Home() {
 
             <div>
               <h3 className="text-white font-medium mb-2">1. User Agreement</h3>
-              <p>By accessing ElitePay, you agree to comply with all applicable financial regulations.</p>
+              <p>
+                By accessing and using ElitePay services, you agree to comply
+                with all applicable financial regulations and digital transaction laws.
+              </p>
             </div>
 
             <div>
-              <h3 className="text-white font-medium mb-2">2. Account Security</h3>
-              <p>Users are responsible for maintaining the confidentiality of account credentials.</p>
+              <h3 className="text-white font-medium mb-2">2. Account Responsibility</h3>
+              <p>
+                Users are solely responsible for maintaining the confidentiality
+                of account credentials and personal financial information.
+              </p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">3. Transaction Processing</h3>
-              <p>Transaction speed depends on banking networks and UPI availability.</p>
+              <p>
+                Transaction completion times depend on banking networks,
+                UPI providers, and system availability.
+              </p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">4. Platform Availability</h3>
-              <p>Service uptime may vary during maintenance or technical issues.</p>
+              <p>
+                ElitePay does not guarantee uninterrupted service during
+                maintenance, upgrades, or unforeseen technical issues.
+              </p>
             </div>
 
             <div>
-              <h3 className="text-white font-medium mb-2">5. Compliance</h3>
-              <p>ElitePay reserves the right to suspend accounts involved in suspicious activities.</p>
+              <h3 className="text-white font-medium mb-2">5. Compliance & Monitoring</h3>
+              <p>
+                The platform reserves the right to suspend or terminate accounts
+                involved in suspicious, fraudulent, or illegal activities.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-medium mb-2">6. Legal Jurisdiction</h3>
+              <p>
+                All disputes shall be governed under applicable Indian financial
+                and digital commerce regulations.
+              </p>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* Animation CSS */}
+      {/* INR Animation CSS */}
       <style jsx>{`
         .rupee {
           position: absolute;
           font-size: 90px;
           font-weight: bold;
           color: rgba(255,255,255,0.05);
-          animation: floatUp 10s linear infinite;
+          animation: floatUp 12s linear infinite;
         }
 
         .r1 { left: 10%; animation-delay: 0s; }
-        .r2 { left: 40%; animation-delay: 2s; }
-        .r3 { left: 70%; animation-delay: 4s; }
-        .r4 { left: 85%; animation-delay: 6s; }
+        .r2 { left: 40%; animation-delay: 3s; }
+        .r3 { left: 70%; animation-delay: 6s; }
+        .r4 { left: 85%; animation-delay: 9s; }
 
         @keyframes floatUp {
           0% { transform: translateY(100vh) rotate(0deg); }
