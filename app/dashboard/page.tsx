@@ -1,131 +1,106 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import WithdrawModal from "@/components/WithdrawModal";
 
-export default function LoginPage() {
-  const [signup, setSignup] = useState(true);
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+export default function Dashboard() {
+  const [authReady, setAuthReady] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [showWithdraw, setShowWithdraw] = useState(false);
 
-  const handleSubmit = () => {
-    setError("");
+  useEffect(() => {
+    const logged = localStorage.getItem("isLoggedIn");
 
-    if (signup) {
-      // SAVE USER
-      const userData = { fullName, email, phone, password };
-      localStorage.setItem("user", JSON.stringify(userData));
-
-      alert("Account Created Successfully!");
-      setSignup(false);
+    if (logged !== "true") {
+      window.location.replace("/login");
       return;
     }
 
-    // LOGIN
-    const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
+    const name = localStorage.getItem("userName");
+    setUserName(name || "User");
+    setAuthReady(true);
+  }, []);
 
-    if (
-      email === savedUser.email &&
-      password === savedUser.password
-    ) {
-      // ✅ IMPORTANT FIX
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem(
-        "userName",
-        savedUser.fullName || email.split("@")[0]
-      );
-
-      // Hard redirect (no flash)
-      window.location.replace("/dashboard");
-    } else {
-      setError("Invalid Email or Password");
-    }
-  };
+  if (!authReady) return null;
 
   return (
-    <div className="min-h-screen bg-[#071c3b] flex items-center justify-center px-4 text-white">
-      <div className="w-full max-w-md bg-[#0b234a] p-8 rounded-2xl border border-blue-800">
+    <div className="min-h-screen relative overflow-hidden bg-[#060f1f] text-white px-6 py-6">
 
-        <h2 className="text-2xl font-semibold mb-6 text-center text-blue-400">
-          {signup ? "Create your account" : "Login"}
-        </h2>
+      {/* Background Glow */}
+      <div className="absolute top-[-200px] left-[-150px] w-[500px] h-[500px] bg-blue-600/20 blur-[150px] rounded-full"></div>
+      <div className="absolute bottom-[-200px] right-[-150px] w-[500px] h-[500px] bg-blue-600/20 blur-[150px] rounded-full"></div>
 
-        {signup && (
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        )}
+      {/* Header */}
+      <div className="relative z-10 mb-6">
+        <h1 className="text-2xl font-semibold tracking-wide">
+          Welcome,{" "}
+          <span className="text-[#4f8cff]">{userName}</span>
+        </h1>
+        <p className="text-gray-400 mt-1 text-sm">
+          Manage your funds, exchange & withdrawals
+        </p>
+      </div>
 
-        <input
-          type="email"
-          placeholder="Email Address"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      {/* Total Funds Card */}
+      <div className="relative z-10 bg-gradient-to-br from-[#0d1c33] to-[#091626] 
+        backdrop-blur-xl border border-white/10 
+        rounded-3xl p-6 mb-8 shadow-[0_0_60px_rgba(0,0,0,0.4)]">
 
-        {signup && (
-          <input
-            type="text"
-            placeholder="Phone Number"
-            className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        )}
-
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full mb-4 px-4 py-3 rounded-lg bg-[#0f2d5c]"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        {error && (
-          <p className="text-red-400 text-sm mb-3 text-center">
-            {error}
-          </p>
-        )}
-
-        <button
-          onClick={handleSubmit}
-          className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold"
-        >
-          {signup ? "Create Account" : "Login"}
-        </button>
-
-        <p className="mt-6 text-center text-gray-400 text-sm">
-          {signup ? (
-            <>
-              Already have an account?{" "}
-              <span
-                onClick={() => setSignup(false)}
-                className="text-blue-400 cursor-pointer"
-              >
-                Login
-              </span>
-            </>
-          ) : (
-            <>
-              Don’t have an account?{" "}
-              <span
-                onClick={() => setSignup(true)}
-                className="text-blue-400 cursor-pointer"
-              >
-                Sign up
-              </span>
-            </>
-          )}
+        <p className="text-gray-400 text-sm">
+          Total Funds Available
         </p>
 
+        <h1 className="text-4xl font-bold text-[#4f8cff] mt-3 tracking-wide">
+          ₹7,76,85,830
+        </h1>
+
+        <p className="text-gray-500 text-sm mt-2">
+          8,00,00,000+ INR portfolio
+        </p>
       </div>
+
+      {/* Fund Cards */}
+      <div className="relative z-10 space-y-6">
+
+        {[
+          { name: "Pure Fund", amount: "₹1,14,11,990" },
+          { name: "Stock Fund", amount: "₹2,03,78,348" },
+          { name: "Political Fund", amount: "₹4,58,95,492" },
+        ].map((fund, i) => (
+          <div
+            key={i}
+            className="bg-gradient-to-br from-[#0d1c33] to-[#091626]
+            backdrop-blur-xl border border-white/10
+            rounded-3xl p-6 shadow-[0_0_40px_rgba(0,0,0,0.4)]"
+          >
+            <p className="text-gray-400 text-sm mb-2 tracking-wide">
+              {fund.name}
+            </p>
+
+            <p className="text-2xl font-semibold mb-5 text-white tracking-wide">
+              {fund.amount}
+            </p>
+
+            <button
+              onClick={() => setShowWithdraw(true)}
+              className="w-full py-3 rounded-2xl 
+              border border-[#4f8cff] 
+              text-[#4f8cff] 
+              hover:bg-[#4f8cff]/10 
+              transition duration-300"
+            >
+              Withdraw
+            </button>
+          </div>
+        ))}
+
+      </div>
+
+      <WithdrawModal
+        show={showWithdraw}
+        onClose={() => setShowWithdraw(false)}
+      />
+
     </div>
   );
-      }
+        }
