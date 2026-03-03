@@ -1,60 +1,48 @@
-type Props = {
+"use client";
+
+import { useState } from "react";
+import PaymentMethodModal from "./PaymentMethodModal";
+
+interface Props {
+  show: boolean;
   onClose: () => void;
-  onSelectPlan: () => void;
-};
-
-export default function WithdrawModal({ onClose, onSelectPlan }: Props) {
-  return (
-    <div style={overlayStyle}>
-      <div style={modalStyle}>
-        <h2>Choose Withdrawal Plan</h2>
-
-        <div style={planStyle} onClick={onSelectPlan}>
-          <p>Plan 1 - Deposit ₹5,000</p>
-          <strong>Get ₹20,000 INR</strong>
-        </div>
-
-        <div style={planStyle} onClick={onSelectPlan}>
-          <p>Plan 2 - Deposit ₹10,000</p>
-          <strong>Get ₹40,000 INR</strong>
-        </div>
-
-        <div style={planStyle} onClick={onSelectPlan}>
-          <p>Plan 3 - Deposit ₹20,000</p>
-          <strong>Get ₹80,000 INR</strong>
-        </div>
-
-        <button onClick={onClose} style={{ marginTop: 15 }}>Close</button>
-      </div>
-    </div>
-  );
 }
 
-const overlayStyle = {
-  position: "fixed" as const,
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  background: "rgba(0,0,0,0.7)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-};
+export default function WithdrawModal({ show, onClose }: Props) {
+  const [showPaymentMethod, setShowPaymentMethod] = useState(false);
 
-const modalStyle = {
-  background: "#111827",
-  padding: "25px",
-  borderRadius: "15px",
-  width: "90%",
-  maxWidth: "400px",
-  color: "#fff"
-};
+  if (!show) return null;
 
-const planStyle = {
-  background: "#1f2937",
-  padding: "15px",
-  borderRadius: "10px",
-  marginBottom: "15px",
-  cursor: "pointer"
-};
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div className="bg-[#0b234a] w-96 p-6 rounded-2xl border border-blue-900 shadow-2xl relative">
+
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 text-gray-400"
+          >
+            ✕
+          </button>
+
+          <h2 className="text-xl font-semibold mb-6 text-center">
+            Withdraw Funds
+          </h2>
+
+          <button
+            onClick={() => setShowPaymentMethod(true)}
+            className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold"
+          >
+            Continue
+          </button>
+
+        </div>
+      </div>
+
+      <PaymentMethodModal
+        show={showPaymentMethod}
+        onClose={() => setShowPaymentMethod(false)}
+      />
+    </>
+  );
+}
