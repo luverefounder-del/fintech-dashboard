@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#06142e] text-white relative overflow-hidden">
 
-      {/* Floating INR Animation */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Floating INR Animation (Safe - does NOT block clicks) */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         <span className="rupee r1">₹</span>
         <span className="rupee r2">₹</span>
         <span className="rupee r3">₹</span>
@@ -51,10 +53,13 @@ export default function Home() {
           merchants across India. Lightning-fast UPI transactions with 99.99% uptime.
         </p>
 
-        <div className="mt-10">
-          <button className="bg-blue-600 hover:bg-blue-700 transition px-10 py-4 rounded-xl text-lg font-semibold shadow-lg">
-            Start Earning
-          </button>
+        {/* CLICKABLE BUTTON */}
+        <div className="mt-10 relative z-30">
+          <Link href="/dashboard">
+            <button className="bg-blue-600 hover:bg-blue-700 transition px-10 py-4 rounded-xl text-lg font-semibold shadow-lg cursor-pointer">
+              Start Earning
+            </button>
+          </Link>
         </div>
 
       </section>
@@ -70,50 +75,32 @@ export default function Home() {
 
             <div>
               <h3 className="text-white font-medium mb-2">1. User Agreement</h3>
-              <p>
-                By accessing and using ElitePay services, you agree to comply
-                with all applicable financial regulations and digital transaction laws.
-              </p>
+              <p>By accessing and using ElitePay services, you agree to comply with all applicable financial regulations.</p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">2. Account Responsibility</h3>
-              <p>
-                Users are solely responsible for maintaining the confidentiality
-                of account credentials and personal financial information.
-              </p>
+              <p>Users are responsible for maintaining the confidentiality of account credentials and financial information.</p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">3. Transaction Processing</h3>
-              <p>
-                Transaction completion times depend on banking networks,
-                UPI providers, and system availability.
-              </p>
+              <p>Transaction times depend on banking networks and UPI provider availability.</p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">4. Platform Availability</h3>
-              <p>
-                ElitePay does not guarantee uninterrupted service during
-                maintenance, upgrades, or unforeseen technical issues.
-              </p>
+              <p>ElitePay does not guarantee uninterrupted service during maintenance or technical disruptions.</p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">5. Compliance & Monitoring</h3>
-              <p>
-                The platform reserves the right to suspend or terminate accounts
-                involved in suspicious, fraudulent, or illegal activities.
-              </p>
+              <p>The platform reserves the right to suspend accounts involved in suspicious or illegal activities.</p>
             </div>
 
             <div>
               <h3 className="text-white font-medium mb-2">6. Legal Jurisdiction</h3>
-              <p>
-                All disputes shall be governed under applicable Indian financial
-                and digital commerce regulations.
-              </p>
+              <p>All disputes are governed under applicable Indian financial laws.</p>
             </div>
 
           </div>
