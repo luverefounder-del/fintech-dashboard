@@ -1,53 +1,67 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Dashboard() {
-  const [loading, setLoading] = useState(true);
-  const [userName, setUserName] = useState("");
+export default function DashboardPage() {
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const auth = localStorage.getItem("auth");
+    const savedUser = localStorage.getItem("user");
 
-    if (auth === "true") {
-      const name = localStorage.getItem("userName");
-      setUserName(name || "User");
-      setLoading(false);
+    if (!savedUser) {
+      router.push("/login");
     } else {
-      window.location.href = "/login";
+      setUser(JSON.parse(savedUser));
     }
-  }, []);
+  }, [router]);
 
-  if (loading) return null;
+  if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#060f1f] text-white px-6 py-6">
+    <div className="min-h-screen bg-[#070f1c] text-white px-4 py-6">
+      
+      <div className="text-2xl font-semibold mb-2">
+        Welcome, <span className="text-blue-400">{user.fullName}</span>
+      </div>
 
-      <h1 className="text-2xl font-semibold">
-        Welcome,{" "}
-        <span className="text-[#4f8cff]">{userName}</span>
-      </h1>
-
-      <p className="text-gray-400 mt-1 mb-8">
+      <p className="text-gray-400 mb-6">
         Manage your funds, exchange & withdrawals
       </p>
 
-      <div className="bg-gradient-to-br from-[#0d1c33] to-[#091626]
-        rounded-3xl p-6 border border-white/10">
-
-        <p className="text-gray-400 text-sm">
-          Total Funds Available
-        </p>
-
-        <h1 className="text-4xl font-bold text-[#4f8cff] mt-3">
+      {/* Total Funds Card */}
+      <div className="bg-[#0d1b2a] rounded-2xl p-6 mb-6 border border-[#1f2c3d]">
+        <p className="text-gray-400 mb-2">Total Funds Available</p>
+        <h1 className="text-4xl font-bold text-blue-500">
           ₹7,76,85,830
         </h1>
-
-        <p className="text-gray-500 text-sm mt-2">
+        <p className="text-gray-500 mt-2">
           8,00,00,000+ INR portfolio
         </p>
       </div>
 
+      {/* Fund Cards */}
+      {[
+        { title: "Pure Fund", amount: "₹1,14,11,990" },
+        { title: "Stock Fund", amount: "₹2,03,78,348" },
+        { title: "Political Fund", amount: "₹4,58,95,492" },
+      ].map((fund, index) => (
+        <div
+          key={index}
+          className="bg-[#0d1b2a] rounded-2xl p-5 mb-5 border border-[#1f2c3d]"
+        >
+          <h2 className="text-lg text-gray-300 mb-1">{fund.title}</h2>
+          <p className="text-2xl font-semibold mb-4">{fund.amount}</p>
+
+          <button
+            onClick={() => alert("Deposit packages coming soon")}
+            className="w-full border border-blue-500 text-blue-400 py-3 rounded-xl hover:bg-blue-500 hover:text-white transition"
+          >
+            Withdraw
+          </button>
+        </div>
+      ))}
     </div>
   );
-}w
+}
