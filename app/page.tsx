@@ -4,29 +4,30 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [icons, setIcons] = useState<{ id: number; left: number; delay: number }[]>([]);
+  const [icons, setIcons] = useState<
+    { id: number; left: number; delay: number }[]
+  >([]);
 
   useEffect(() => {
-    const generated = Array.from({ length: 25 }).map((_, i) => ({
+    const generated = Array.from({ length: 20 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
-      delay: Math.random() * 20,
+      delay: Math.random() * 15,
     }));
     setIcons(generated);
   }, []);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#071225] to-[#0c1f3f] text-white relative overflow-hidden">
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-[#071225] to-[#0c1f3f] text-white">
 
-      {/* Animated INR Background */}
+      {/* INR Floating Icons */}
       {icons.map((icon) => (
         <div
           key={icon.id}
-          className="absolute text-blue-500/10 text-4xl animate-float"
+          className="absolute text-blue-500/10 text-4xl animate-bounce"
           style={{
             left: `${icon.left}%`,
-            top: "110%",
-            animationDelay: `${icon.delay}s`,
+            top: `${icon.delay * 5}%`,
           }}
         >
           ₹
@@ -34,32 +35,30 @@ export default function Home() {
       ))}
 
       {/* Navbar */}
-      <nav className="flex justify-between items-center px-6 py-5 relative z-10">
-        <div className="flex items-center gap-3">
-          <img src="/logo.png" className="w-10 h-10 rounded-md" />
-          <h1 className="text-2xl font-semibold text-blue-400">ElitePay</h1>
-        </div>
-      </nav>
+      <div className="flex items-center px-6 py-5">
+        <img src="/logo.png" className="w-10 h-10 rounded-md mr-3" />
+        <h1 className="text-2xl font-semibold text-blue-400">ElitePay</h1>
+      </div>
 
-      {/* Hero Section */}
-      <section className="flex flex-col items-center text-center mt-16 px-6 relative z-10">
+      {/* Hero */}
+      <div className="flex flex-col items-center text-center mt-16 px-6">
 
-        <div className="bg-white rounded-3xl p-8 shadow-2xl mb-8">
-          <img src="/logo.png" className="w-40 mx-auto" />
+        <div className="bg-white rounded-3xl p-6 shadow-2xl mb-8">
+          <img src="/logo.png" className="w-32 mx-auto" />
         </div>
 
         <div className="px-6 py-3 rounded-full border border-blue-500/40 bg-blue-500/10 mb-10">
-          <p className="text-blue-400 text-sm flex items-center gap-2">
+          <p className="text-blue-400 text-sm">
             ⚡ India's #1 Trusted Payment Gateway
           </p>
         </div>
 
         <h1 className="text-5xl font-semibold leading-tight">
-          Secure & <br /> Instant
+          Secure & Instant
         </h1>
 
         <h1 className="text-5xl font-bold mt-2 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-          Payment <br /> Solutions
+          Payment Solutions
         </h1>
 
         <p className="text-gray-400 text-lg max-w-xl mt-8 leading-relaxed">
@@ -68,59 +67,35 @@ export default function Home() {
           uptime.
         </p>
 
-        {/* Only ONE Button */}
+        {/* Only Start Earning Button */}
         <div className="mt-12">
           <Link href="/dashboard">
-            <button className="px-10 py-5 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 transition text-lg font-semibold shadow-2xl shadow-blue-600/30">
+            <button className="px-10 py-5 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-700 hover:opacity-90 transition text-lg font-semibold shadow-xl">
               Start Earning
             </button>
           </Link>
         </div>
-      </section>
+      </div>
 
-      {/* TERMS & CONDITIONS */}
-      <section className="relative z-10 mt-28 px-6 pb-40 max-w-4xl mx-auto">
-        <h2 className="text-3xl font-semibold text-blue-400 mb-8">
+      {/* Terms */}
+      <div className="mt-24 px-6 pb-32 max-w-3xl mx-auto">
+        <h2 className="text-3xl font-semibold text-blue-400 mb-6">
           Terms & Conditions
         </h2>
 
-        <div className="space-y-6 text-gray-400 leading-relaxed text-sm">
-
-          {Array.from({ length: 40 }).map((_, i) => (
+        <div className="space-y-6 text-gray-400 text-sm leading-relaxed">
+          {Array.from({ length: 30 }).map((_, i) => (
             <p key={i}>
-              {i + 1}. By accessing and using ElitePay services, you agree to
-              comply with all applicable laws, security standards, verification
-              policies, and operational guidelines established by the platform.
-              ElitePay reserves the right to suspend, restrict, or terminate any
-              account found violating usage terms, regulatory compliance, or
-              suspicious transactional behavior.
+              {i + 1}. By accessing this platform, you agree to comply with all
+              operational policies, verification procedures, regulatory
+              standards, and usage guidelines. The platform reserves full
+              authority to restrict or suspend accounts in case of suspicious
+              activity, misuse, or policy violations.
             </p>
           ))}
-
         </div>
-      </section>
-
-      {/* Animation */}
-      <style jsx global>{`
-        @keyframes floatUp {
-          0% {
-            transform: translateY(0);
-            opacity: 0;
-          }
-          20% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(-120vh);
-            opacity: 0;
-          }
-        }
-
-        .animate-float {
-          animation: floatUp 18s linear infinite;
-        }
-      `}</style>
+      </div>
 
     </main>
   );
-}a
+}
