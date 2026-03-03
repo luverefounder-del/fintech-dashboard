@@ -1,121 +1,80 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Landmark, TrendingUp, CheckSquare, User, LayoutGrid, LogOut, Download } from "lucide-react";
-import WithdrawModal from "../../components/WithdrawModal";
+import { useState } from "react";
 
-export default function Dashboard() {
-  const router = useRouter();
-  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+export default function WithdrawModal({ show, onClose }: any) {
+  const [showDeposit, setShowDeposit] = useState(false);
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-      router.push("/login");
-    }
-  }, [router]);
+  if (!show) return null;
 
   return (
-    <main className="min-h-screen px-4 py-6 text-white bg-gradient-to-b from-[#071c3b] to-[#04162e]">
+    <>
+      {/* Withdraw Popup */}
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div className="bg-[#0c1628] w-[90%] max-w-md p-6 rounded-2xl border border-blue-900/40 relative">
 
-      {/* NAVBAR */}
-      <div className="flex items-center justify-between mb-10">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg">
-            <span className="font-bold text-lg">EP</span>
-          </div>
-          <span className="text-2xl font-semibold text-blue-400">
-            ElitePay
-          </span>
-        </div>
-
-        <div className="flex items-center gap-5 text-blue-400">
-          <User size={22} />
-          <LayoutGrid size={22} />
-          <LogOut
-            size={22}
-            className="cursor-pointer"
-            onClick={() => {
-              localStorage.removeItem("isLoggedIn");
-              router.push("/login");
-            }}
-          />
-        </div>
-      </div>
-
-      {/* TOTAL FUNDS */}
-      <div className="bg-[#0c1628] rounded-3xl p-6 mb-8 shadow-[0_0_50px_rgba(0,0,0,0.6)] border border-blue-900/40">
-        <p className="text-gray-400 text-sm">Total Funds Available</p>
-        <h1 className="text-4xl font-bold text-blue-500 mt-3 tracking-wide">
-          ₹7,59,39,895
-        </h1>
-        <p className="text-gray-500 text-sm mt-2">
-          8,00,00,000+ INR portfolio
-        </p>
-      </div>
-
-      {/* FUND CARDS */}
-      <div className="space-y-6">
-
-        {[
-          {
-            name: "Pure Fund",
-            amount: "₹1,23,31,961",
-            icon: <Landmark size={22} />,
-            iconBg: "bg-blue-500/15",
-            iconColor: "text-blue-400"
-          },
-          {
-            name: "Stock Fund",
-            amount: "₹2,30,04,512",
-            icon: <TrendingUp size={22} />,
-            iconBg: "bg-green-500/15",
-            iconColor: "text-green-400"
-          },
-          {
-            name: "Political Fund",
-            amount: "₹4,06,03,422",
-            icon: <CheckSquare size={22} />,
-            iconBg: "bg-yellow-500/15",
-            iconColor: "text-yellow-400"
-          },
-        ].map((fund, i) => (
-          <div
-            key={i}
-            className="bg-[#0c1628] rounded-3xl p-6 border border-blue-900/30 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-3 text-gray-400"
           >
-            <div className="flex items-center gap-4 mb-4">
-              <div className={`p-3 rounded-xl ${fund.iconBg}`}>
-                <div className={fund.iconColor}>
-                  {fund.icon}
-                </div>
-              </div>
+            ✕
+          </button>
 
-              <div>
-                <p className="text-gray-400 text-sm">{fund.name}</p>
-                <p className="text-2xl font-semibold">{fund.amount}</p>
-              </div>
+          <h2 className="text-xl font-semibold text-center mb-6">
+            Choose Payment Method
+          </h2>
+
+          <div className="space-y-4">
+            <div
+              onClick={() => setShowDeposit(true)}
+              className="bg-[#111c34] p-4 rounded-xl border border-blue-900/40 cursor-pointer hover:bg-blue-900/20 transition"
+            >
+              <h3 className="font-semibold">USDT (TRC20)</h3>
+              <p className="text-gray-400 text-sm">Pay via cryptocurrency</p>
             </div>
 
-            <button
-              onClick={() => setShowWithdrawModal(true)}
-              className="mt-3 w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-blue-600 text-blue-400 hover:bg-blue-600/10 transition"
+            <div
+              onClick={() => setShowDeposit(true)}
+              className="bg-[#111c34] p-4 rounded-xl border border-blue-900/40 cursor-pointer hover:bg-blue-900/20 transition"
             >
-              <Download size={18} />
-              Withdraw
-            </button>
+              <h3 className="font-semibold">INR (UPI)</h3>
+              <p className="text-gray-400 text-sm">Pay via UPI transfer</p>
+            </div>
           </div>
-        ))}
-
+        </div>
       </div>
 
-      {/* MODAL */}
-      <WithdrawModal
-        show={showWithdrawModal}
-        onClose={() => setShowWithdrawModal(false)}
-      />
+      {/* Deposit Packages Modal */}
+      {showDeposit && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-[#0c1628] w-[90%] max-w-md p-6 rounded-2xl border border-blue-900/40 relative">
 
-    </main>
+            <button
+              onClick={() => setShowDeposit(false)}
+              className="absolute right-4 top-3 text-gray-400"
+            >
+              ✕
+            </button>
+
+            <h2 className="text-xl font-semibold text-center mb-6">
+              Select Deposit Package
+            </h2>
+
+            <div className="space-y-4">
+
+              {["₹5,000", "₹10,000", "₹20,000"].map((amount, i) => (
+                <div
+                  key={i}
+                  className="bg-[#111c34] p-4 rounded-xl border border-blue-900/40 hover:bg-blue-900/20 transition cursor-pointer"
+                >
+                  <h3 className="text-lg font-semibold">{amount}</h3>
+                </div>
+              ))}
+
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
