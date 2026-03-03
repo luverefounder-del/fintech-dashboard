@@ -1,9 +1,24 @@
 "use client";
-import Link from "next/link";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Loader from "./components/Loader";
 
 export default function Home() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleStart = () => {
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/login");
+    }, 1500);
+  };
+
   return (
     <div className="relative min-h-screen bg-[#071c3b] text-white overflow-hidden">
+
+      {loading && <Loader />}
 
       {/* INR Animation */}
       <div className="absolute inset-0 pointer-events-none">
@@ -48,16 +63,18 @@ export default function Home() {
         <p className="mt-6 text-gray-300 max-w-xl mx-auto">
           Process payments seamlessly with enterprise-grade security,
           lightning-fast UPI infrastructure and reliable performance.
+          Trusted by thousands of merchants across India.
         </p>
 
-        <Link href="/login">
-          <button className="mt-8 bg-blue-600 hover:bg-blue-700 px-10 py-4 rounded-xl font-semibold shadow-lg transition">
-            Start Earning
-          </button>
-        </Link>
+        <button
+          onClick={handleStart}
+          className="mt-8 bg-blue-600 hover:bg-blue-700 px-10 py-4 rounded-xl font-semibold shadow-lg transition"
+        >
+          Start Earning
+        </button>
       </section>
 
-      {/* Terms */}
+      {/* Terms & Conditions */}
       <section className="relative z-10 mt-20 px-6 pb-16 max-w-4xl mx-auto">
         <div className="bg-[#0b234a] p-8 rounded-2xl border border-blue-900 shadow-xl">
           <h3 className="text-2xl font-semibold mb-6 text-blue-400">
@@ -65,11 +82,12 @@ export default function Home() {
           </h3>
 
           <ul className="space-y-4 text-gray-300 text-sm leading-relaxed">
-            <li>• All accounts are subject to compliance verification.</li>
-            <li>• Users must provide accurate information during registration.</li>
-            <li>• Suspicious activity may result in temporary suspension.</li>
-            <li>• Processing times depend on banking network availability.</li>
-            <li>• The platform reserves the right to update policies when required.</li>
+            <li>• All accounts are subject to compliance verification and KYC validation.</li>
+            <li>• Users must provide accurate identity and contact information.</li>
+            <li>• Any suspicious or fraudulent activity may result in suspension.</li>
+            <li>• Transaction processing time depends on banking network availability.</li>
+            <li>• Platform reserves the right to update policies and service terms.</li>
+            <li>• By continuing, users agree to all applicable regulations and compliance requirements.</li>
           </ul>
         </div>
       </section>
